@@ -4,6 +4,7 @@
     <!-- <img src="./assets/img/recode.png" alt=""> -->
     <i class="record-work icon-webpack"></i>
     <a-button type="primary" @click="getlist">Primary Button</a-button>
+    <router-view></router-view>
   </div>
 </template>
 
