@@ -1,0 +1,68 @@
+@font-face {
+  font-family: "record-work"; /* Project id 3733553 */
+  src: url('iconfont.woff2?t=1666862049097') format('woff2'),
+       url('iconfont.woff?t=1666862049097') format('woff'),
+       url('iconfont.ttf?t=1666862049097') format('truetype'),
+       url('iconfont.svg?t=1666862049097#record-work') format('svg');
+}
+
+.record-work {
+  font-family: "record-work" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-icon:before {
+  content: "\e651";
+}
+
+.icon-node:before {
+  content: "\f1fc";
+}
+
+.icon-js:before {
+  content: "\ec68";
+}
+
+.icon-webpack:before {
+  content: "\e799";
+}
+
+.icon-view:before {
+  content: "\e69e";
+}
+
+.icon-xiaochengxu:before {
+  content: "\e63e";
+}
+
+.icon-react:before {
+  content: "\e689";
+}
+
+.icon-time:before {
+  content: "\e6f1";
+}
+
+.icon-tianjia:before {
+  content: "\e657";
+}
+
+.icon-Vue:before {
+  content: "\e79a";
+}
+
+.icon-fanhuidingbu:before {
+  content: "\e62d";
+}
+
+.icon-github:before {
+  content: "\e732";
+}
+
+.icon-fanhuidingbu1:before {
+  content: "\e64a";
+}
+

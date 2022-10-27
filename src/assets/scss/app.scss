@@ -1,0 +1,23 @@
+* {
+	box-sizing: border-box;
+    outline: none;
+}
+
+html,
+body {
+  min-width: 1180px;
+	height: 100%;
+	font-family: "Microsoft Yahei", "PingFangSC-Regular";
+	background-color: #fafbfd;
+}
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background-color: #fff !important;
+}
+
+pre {
+  margin: 0px;
+  font-family: "Microsoft Yahei", "PingFangSC-Regular";
+}
+#app {
+  height: 100%;
+}
