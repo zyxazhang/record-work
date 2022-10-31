@@ -8,7 +8,18 @@ body {
 	margin: 0;
 	padding: 0;
 }
-
+section {
+	&::-webkit-scrollbar {
+		width: 4px;
+		height: 4px;
+    	background-color: lighten(#a5a5a5, 80%);
+	}
+	&::-webkit-scrollbar-thumb {
+		height: 2px;
+	    border-radius: 2px;
+	    background-color: #a5a5a5;
+	}
+}
 ul,
 li {
 	margin: 0;

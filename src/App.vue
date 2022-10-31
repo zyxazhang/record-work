@@ -35,7 +35,6 @@ export default defineComponent({
 .page {
   width: 100%;
   height: 100%;
-  color: red;
   display: flex;
   flex-direction: column;
   // background-color: skyblue;

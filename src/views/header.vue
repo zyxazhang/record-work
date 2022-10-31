@@ -59,28 +59,31 @@ export default defineComponent({
 // 超小屏幕
 @media screen and (max-width: 575px){
   .header {
-    background-color: rgb(191, 255, 0);
-    .text {
-      color: #eee;
-    }
+    background-color: rgb(47, 233, 233);
   }
 }
 // 小屏幕
 @media screen and (min-width: 576px) and (max-width: 767px){
   .header {
-    background: red;
+    background: rgb(239, 164, 223);
   }
 }
 // 中等屏幕
 @media screen and (min-width: 768px) and (max-width: 991px){
-
+  .header {
+    background: rgb(118, 163, 227);
+  }
 }
 // 大屏幕
 @media screen and (min-width: 992px) and (max-width: 1199px){
-
+  .header {
+    background: rgb(226, 243, 97);
+  }
 }
 // 特大屏幕
 @media screen and (min-width: 1200px){
-
+  .header {
+    background: white;
+  }
 }
 </style>
