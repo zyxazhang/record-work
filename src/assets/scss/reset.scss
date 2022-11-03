@@ -12,12 +12,12 @@ section {
 	&::-webkit-scrollbar {
 		width: 4px;
 		height: 4px;
-    	background-color: lighten(#a5a5a5, 80%);
+    	background-color: lighten(#eee, 80%);
 	}
 	&::-webkit-scrollbar-thumb {
 		height: 2px;
 	    border-radius: 2px;
-	    background-color: #a5a5a5;
+	    background-color: #eee;
 	}
 }
 ul,

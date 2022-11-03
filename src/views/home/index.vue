@@ -6,7 +6,7 @@
     </div>
     <div class="home-content">
       <worksList ref="worksList" :class="[ unfold ? 'list-unfold' : 'list' ]"></worksList>
-      <worksContent @click="closeUnfoldList" ref="worksContent" :class="[ unfold ? 'content-unfold' : 'content' ]"></worksContent>
+      <worksContent @click="closeUnfoldList" ref="worksContent" :class="[ unfold ? 'content-unfold' : 'content' ]" :unfold="unfold"></worksContent>
     </div>
   </div>
 </template>
@@ -69,7 +69,7 @@ export default defineComponent({
     }
     .content-unfold {
       background: #333333;
-      opacity: 0.6;
+      opacity: 0.1;
     }
   }
 }
