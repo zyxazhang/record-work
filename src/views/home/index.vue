@@ -5,16 +5,32 @@
       <i class="record-work icon-fanhuidingbu"></i>
     </div>
     <div class="home-content">
-      <worksList ref="worksList" :class="[ unfold ? 'list-unfold' : 'list' ]"></worksList>
-      <worksContent @click="closeUnfoldList" ref="worksContent" :class="[ unfold ? 'content-unfold' : 'content' ]" :unfold="unfold"></worksContent>
+      <worksList
+        ref="worksList"
+        :class="[ unfold ? 'list-unfold' : 'list' ]"
+        :record-list="recordList"
+        @getCurRecordId="getCurRecordId"
+        @closeUnfoldList="closeUnfoldList">
+      </worksList>
+      <worksContent
+        ref="worksContent"
+        :class="[ unfold ? 'content-unfold' : 'content' ]"
+        :unfold="unfold"
+        :cur-record-id="curRecordId"
+        @click="closeUnfoldList">
+      </worksContent>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import useMain from '../../store/index'
 import worksList from './worksList.vue'
 import worksContent from './worksContent.vue'
+import { IRecordField, IRecordType } from '../../types/index'
+
 export default defineComponent({
   name: 'home',
   components: {
@@ -22,22 +38,62 @@ export default defineComponent({
     worksContent
   },
   setup() {
+    const router = useRouter()
+    const route = useRoute()
+    const store = useMain()
     const unfold = ref<boolean>(false)
     const worksList = ref<any>(null)
     const worksContent = ref<any>(null)
+    const recordList = ref<Array<IRecordField>>([])
     const unfoldlist = (): void => {
-      console.log(worksList.value)
       unfold.value = true
     }
     const closeUnfoldList = (): void => {
       unfold.value = false
     }
+    const getRecordList = async () => {
+      const res = await store.getRecordList()
+      const resultList: any = []
+      res.data.forEach((item: IRecordField) => {
+        const cur = resultList.find((v: IRecordType) => v.type === item.tag)
+        if (cur) {
+          cur.children.push(item)
+        } else {
+          resultList.push({
+            type: item.tag,
+            children: [item]
+          })
+        }
+      })
+      recordList.value = resultList
+    }
+    // 当前记录ID
+    const curRecordId = ref<number>()
+    const getCurRecordId = (id: number) => {
+      const query = {
+        recordId: id
+      }
+      router.push({
+        name: 'home',
+        query,
+      })
+      curRecordId.value = id
+    }
+    onMounted(() => {
+      if (route.query.recordId) {
+        curRecordId.value = Number(route.query.recordId)
+      }
+      getRecordList()
+    })
     return {
       unfold,
       worksList,
       worksContent,
+      curRecordId,
+      recordList,
       unfoldlist,
-      closeUnfoldList
+      closeUnfoldList,
+      getCurRecordId
     }
   }
 })

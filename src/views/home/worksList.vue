@@ -1,10 +1,10 @@
 <template>
   <div class="works-list">
     <section class="work-content">
-      <ul class="work-type" v-for="works in workList" :key="works.type">
+      <ul class="work-type" v-for="works in recordList" :key="works.type">
         <li class="works-head">{{works.type}}</li>
         <li class="works-item" v-for="item in works.children" :key="item.id">
-          <span :title="item.name">{{item.name}}</span>
+          <span :title="item.name" @click="changeRecord(item)">{{item.name}}</span>
         </li>
       </ul>
     </section>
@@ -12,14 +12,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import { worklist } from '../../mock/index'
 export default defineComponent({
   name: 'worksList',
-  setup(){
+  props: {
+    recordList: Array
+  },
+  emits: [
+    'getCurRecordId',
+    'closeUnfoldList'
+  ],
+  setup(props, { emit }) {
+    const { recordList } = toRefs(props)
     const workList = reactive(worklist)
+    const changeRecord = (item: any): void => {
+      emit('getCurRecordId', item.id)
+      emit('closeUnfoldList')
+    }
     return {
-      workList
+      workList,
+      recordList,
+      changeRecord
     }
   }
 })

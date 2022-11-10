@@ -15,7 +15,7 @@
   </Viewer>
 </template>
 <script lang="ts">
-import { defineComponent, ref, toRefs } from 'vue'
+import { defineComponent, onMounted, ref, toRefs } from 'vue'
 import { Editor, Viewer } from '@bytemd/vue-next';
 import 'bytemd/dist/index.min.css';
 import breaks from '@bytemd/plugin-breaks';
@@ -36,12 +36,13 @@ export default defineComponent({
     Viewer
   },
   props: {
-    type: String
+    type: String,
+    content: String
   },
   setup(props) {
-    const { type } = toRefs<any>(props)
+    const { type, content } = toRefs<any>(props)
     const isEdit = type.value === 'edit'
-    const value = ref("# 问题描述 ERESOLVE unable to resolve dependency tree\n- 本地配置前端框架 安装依赖时报错\n环境信息\n```js\nconst a = 'asd'\n```")
+    const value = ref(content || '') 
     const plugins = [
       breaks(),
       highlight(),

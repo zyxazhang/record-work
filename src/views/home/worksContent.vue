@@ -1,18 +1,20 @@
 <template>
   <div class="works-content">
-    <section class="content">
-      <editor v-if="!unfold" type="view"></editor>
-      <div v-else class="mask">
-        {{store.testText}}
-      </div>
-    </section>
+    <a-spin :spinning="contentLoading" size="large">
+      <section class="content">
+        <editor v-if="!unfold" type="view" :content="content.content"></editor>
+        <div v-else class="mask">
+          {{store.testText}}
+        </div>
+      </section>
+    </a-spin>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, ref, toRefs, watch } from 'vue'
 import editor from '../../components/editor.vue'
-import { textEn } from '../../mock/index'
+import { IRecordDetail } from '../../types/index'
 import useMain from '../../store/index'
 export default defineComponent({
   name: 'wooksContent',
@@ -20,15 +22,33 @@ export default defineComponent({
     editor
   },
   props: {
-    unfold: Boolean
+    unfold: Boolean,
+    curRecordId: Number
   },
   setup(props){
-    const { unfold } = toRefs(props)
+    const { unfold, curRecordId } = toRefs(props)
     const store = useMain()
-    const list = reactive(textEn)
+    const contentLoading = ref<boolean>(false)
+    const content = ref<any>({})
+    watch(curRecordId, (id) => {
+      contentLoading.value = true
+      if(id === undefined) {
+        console.log('首页')
+      } else {
+        getRecordDetails(id)
+      }
+    })
+    const getRecordDetails = (id: number) => {
+      store.getRecordDetails({id}).then(res =>{
+        content.value = res.data
+      }).finally(() => {
+        contentLoading.value = false
+      })
+    }
     return {
+      contentLoading,
+      content,
       store,
-      list,
       unfold
     }
   }

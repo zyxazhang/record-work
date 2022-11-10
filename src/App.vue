@@ -16,14 +16,6 @@ export default defineComponent({
   props: {},
   emits: {},
   setup() {
-    const cname: string = 'this is record'
-    const getlist = (): void => {
-      console.log('asas')
-    }
-    return {
-      cname,
-      getlist
-    }
   }
 })
 </script>
