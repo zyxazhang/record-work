@@ -3,7 +3,7 @@
     <h1>welcome to record</h1>
     <p></p>
     <div class="guide">
-      <a-button class="btn" type="primary">开始</a-button>
+      <a-button class="btn" type="primary" @click="goToRecord">开始</a-button>
       <a-button class="btn">反馈</a-button>
     </div>
   </div>
@@ -11,8 +11,23 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 export default defineComponent({
-  name: 'welcome'
+  name: 'welcome',
+  setup() {
+    const router = useRouter()
+    const goToRecord = () => {
+      router.push({
+        name: 'record',
+        query: {
+          from: 'home'
+        }
+      })
+    }
+    return {
+      goToRecord
+    }
+  }
 })
 </script>
 

@@ -1,9 +1,9 @@
 <template>
   <header class="header">
-    <div class="text">RW Record Work</div>
+    <div class="text" @click="goToPage({path: 'home'})">RW Record Work</div>
     <div class="header-right">
       <ul class="header-nav-li">
-        <li v-for="router in routerList" :key="router.name">{{router.name}}</li>
+        <li v-for="router in routerList" :key="router.name" @click="goToPage(router)">{{router.name}}</li>
       </ul>
       <div class="header-nav-drop" @click="openMenu">
         <i class="record-work icon-caidan"></i>
@@ -28,28 +28,27 @@
 </template>
 
 <script lang="ts">
-import { BlockList } from 'net'
-import { defineComponent, Ref, readonly, ref, reactive } from 'vue'
-interface IState {
-  list: Array<Ilist>
-}
-interface Ilist {
-  name: string,
-  key?: string
+import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
+interface IrouterItem {
+  name?: string,
+  icon?: string,
+  path: string
 }
 export default defineComponent({
   name: 'Header',
   setup() {
+    const router = useRouter()
     const routerList: any = [
       {
         name: '记录',
         icon: 'icon-test-case-secondary',
-        path: ''
+        path: 'record'
       },
       {
         name: '用例',
         icon: 'icon-ceshi',
-        path: ''
+        path: 'example'
       },
       {
         name: '工具',
@@ -58,17 +57,23 @@ export default defineComponent({
       },
     ]
     const menuVisible = ref<boolean>(false)
-    const openMenu = () => {
+    const openMenu = (): void => {
       menuVisible.value = true
     }
     const afterVisibleChange = (bool: boolean) => {
-      console.log(menuVisible.value)
+      console.log(bool)
+    }
+    const goToPage = (listItem: IrouterItem): void => {
+      router.push({
+        name: listItem.path
+      })
     }
     return {
       routerList,
       menuVisible,
       openMenu,
-      afterVisibleChange
+      afterVisibleChange,
+      goToPage
     }
   }
 })
