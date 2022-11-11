@@ -2,7 +2,7 @@
   <Editor
     v-if="isEdit"
     class="edit"
-    :value="value"
+    :value="editValue"
     :plugins="plugins"
     :uploadImages="uploadImage"
     @change="handleChange">
@@ -10,12 +10,12 @@
   <Viewer
     v-else
     class="view"
-    :value="value"
+    :value="viewValue"
     :plugins="plugins">
   </Viewer>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref, toRefs } from 'vue'
+import { defineComponent, onMounted, ref, toRefs, watch } from 'vue'
 import { Editor, Viewer } from '@bytemd/vue-next';
 import 'bytemd/dist/index.min.css';
 import breaks from '@bytemd/plugin-breaks';
@@ -41,8 +41,9 @@ export default defineComponent({
   },
   setup(props) {
     const { type, content } = toRefs<any>(props)
-    const isEdit = type.value === 'edit'
-    const value = ref(content || '') 
+    const isEdit = ref<boolean>(type.value === 'edit')
+    const viewValue = ref<any>(content)
+    const editValue = ref<string>('')
     const plugins = [
       breaks(),
       highlight(),
@@ -53,7 +54,7 @@ export default defineComponent({
       gemoji(),
     ]
     const handleChange = (v: any): void => {
-      value.value = v
+      editValue.value = v
     }
     const uploadImage = async (files: any) => {
       const formdata = new FormData()
@@ -68,7 +69,8 @@ export default defineComponent({
       // ]
     }
     return {
-      value,
+      viewValue,
+      editValue,
       isEdit,
       plugins,
       handleChange,

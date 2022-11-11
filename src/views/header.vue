@@ -1,11 +1,34 @@
 <template>
   <header class="header">
     <div class="text">RW Record Work</div>
-
+    <div class="header-right">
+      <ul class="header-nav-li">
+        <li v-for="router in routerList" :key="router.name">{{router.name}}</li>
+      </ul>
+      <div class="header-nav-drop" @click="openMenu">
+        <i class="record-work icon-caidan"></i>
+      </div>
+      <div class="login">
+        <a-avatar size="small">
+          <template #icon><UserOutlined /></template>
+        </a-avatar>
+      </div>
+    </div>
+    <a-drawer
+      v-model:visible="menuVisible"
+      width="40%"
+      :closable="false"
+      placement="right"
+      @after-visible-change="afterVisibleChange">
+      <p>Some contents...</p>
+      <p>Some contents...</p>
+      <p>Some contents...</p>
+    </a-drawer>
   </header>
 </template>
 
 <script lang="ts">
+import { BlockList } from 'net'
 import { defineComponent, Ref, readonly, ref, reactive } from 'vue'
 interface IState {
   list: Array<Ilist>
@@ -13,31 +36,39 @@ interface IState {
 interface Ilist {
   name: string,
   key?: string
-} 
-interface Tasa {
-  
 }
 export default defineComponent({
   name: 'Header',
   setup() {
-    const as: Ref<Ilist[]> = ref([
+    const routerList: any = [
       {
-        name: 'ad',
-      }, {
-        name: 'asdaa'
-      }
-    ])
-    const state = readonly(reactive<IState>({
-      list: [
-        {
-          name: 'asd',
-          key: 'asdsd'
-        }
-      ]
-    }))
+        name: '记录',
+        icon: 'icon-test-case-secondary',
+        path: ''
+      },
+      {
+        name: '用例',
+        icon: 'icon-ceshi',
+        path: ''
+      },
+      {
+        name: '工具',
+        icon: '',
+        path: ''
+      },
+    ]
+    const menuVisible = ref<boolean>(false)
+    const openMenu = () => {
+      menuVisible.value = true
+    }
+    const afterVisibleChange = (bool: boolean) => {
+      console.log(menuVisible.value)
+    }
     return {
-      state,
-      as
+      routerList,
+      menuVisible,
+      openMenu,
+      afterVisibleChange
     }
   }
 })
@@ -51,21 +82,62 @@ export default defineComponent({
   background-color: rgb(255, 255, 255);
   border-bottom: 1px solid rgba(60, 60, 60, .12);
   padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
   .text {
     color: rgb(25, 24, 24);
     font-weight: bold;
+  }
+  .header-right {
+    display: flex;
+    .header-nav-li {
+      display: flex;
+      margin: 0;
+      li {
+        padding: 0 20px;
+      }
+    }
+    .header-nav-drop {
+      display: none;
+    }
+    .login {
+      height: 100%;
+      margin-left: 20px;
+    }
   }
 }
 // 超小屏幕
 @media screen and (max-width: 575px){
   .header {
     background-color: rgb(47, 233, 233);
+    .header-right {
+      .header-nav-li {
+        display: none;
+      }
+      .header-nav-drop {
+        display: block;
+      }
+      .login {
+        display: none;
+      }
+    }
   }
 }
 // 小屏幕
 @media screen and (min-width: 576px) and (max-width: 767px){
   .header {
     background: rgb(239, 164, 223);
+    .header-right {
+      .header-nav-li {
+        display: none;
+      }
+      .header-nav-drop {
+        display: block;
+      }
+      .login {
+        display: none;
+      }
+    }
   }
 }
 // 中等屏幕
