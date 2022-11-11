@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="home-head">
-      <i class="record-work icon-webpack" @click="unfoldlist"></i>
+      <i class="record-work icon-caidan" @click="unfoldlist"></i>
       <i class="record-work icon-fanhuidingbu"></i>
     </div>
     <div class="home-content">

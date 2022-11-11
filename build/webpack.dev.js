@@ -18,7 +18,7 @@ module.exports = merge(baseConfig, {
     },
     compress: true,
     port: 8080,
-    open: true,
+    open: false,
     hot: true
   }
 });

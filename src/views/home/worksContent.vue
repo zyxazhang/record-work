@@ -2,7 +2,11 @@
   <div class="works-content">
     <a-spin :spinning="contentLoading" size="large">
       <section class="content">
-        <editor v-if="!unfold" type="view" :content="content.content"></editor>
+        <div class="content-header">
+          <h1>{{detail.name}}</h1>
+          <p class="time"><i class="record-work icon-shijian"></i>{{detail.create_time}}</p>
+        </div>
+        <editor v-if="!unfold" type="view" :content="detail.content"></editor>
         <div v-else class="mask">
           {{store.testText}}
         </div>
@@ -29,7 +33,7 @@ export default defineComponent({
     const { unfold, curRecordId } = toRefs(props)
     const store = useMain()
     const contentLoading = ref<boolean>(false)
-    const content = ref<any>({})
+    const detail = ref<any>({})
     watch(curRecordId, (id) => {
       contentLoading.value = true
       if(id === undefined) {
@@ -40,14 +44,14 @@ export default defineComponent({
     })
     const getRecordDetails = (id: number) => {
       store.getRecordDetails({id}).then(res =>{
-        content.value = res.data
+        detail.value = res.data
       }).finally(() => {
         contentLoading.value = false
       })
     }
     return {
       contentLoading,
-      content,
+      detail,
       store,
       unfold
     }
@@ -64,6 +68,15 @@ export default defineComponent({
     width: 100%;
     overflow-y: auto;
     padding: 10px 20%;
+    .content-header {
+      .time {
+        font-size: 10px;
+        i {
+          font-size: 10px;
+          margin-right: 5px;
+        }
+      }
+    }
     .mask {
 
     }
