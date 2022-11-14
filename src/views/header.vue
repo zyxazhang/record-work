@@ -16,13 +16,11 @@
     </div>
     <a-drawer
       v-model:visible="menuVisible"
-      width="40%"
+      width="80%"
       :closable="false"
       placement="right"
       @after-visible-change="afterVisibleChange">
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+      <siderMenu :routerList="routerList"></siderMenu>
     </a-drawer>
   </header>
 </template>
@@ -30,6 +28,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import siderMenu from '../components/sideBarMenu.vue'
 interface IrouterItem {
   name?: string,
   icon?: string,
@@ -37,6 +36,9 @@ interface IrouterItem {
 }
 export default defineComponent({
   name: 'Header',
+  components: {
+    siderMenu
+  },
   setup() {
     const router = useRouter()
     const routerList: any = [
@@ -78,7 +80,15 @@ export default defineComponent({
   }
 })
 </script>
-
+<style lang="scss">
+.ant-drawer-body {
+  padding: 0 !important;
+  background-color: #f2f6fc;
+}
+.ant-drawer-mask {
+  background: cornsilk;
+}
+</style>
 <style lang="scss" scoped>
 .header {
   width: 100%;
@@ -100,6 +110,10 @@ export default defineComponent({
       margin: 0;
       li {
         padding: 0 20px;
+        cursor: pointer;
+        &:hover {
+          color: #1e80ff;
+        }
       }
     }
     .header-nav-drop {
@@ -114,7 +128,7 @@ export default defineComponent({
 // 超小屏幕
 @media screen and (max-width: 575px){
   .header {
-    background-color: rgb(47, 233, 233);
+    background-color: cornsilk;
     .header-right {
       .header-nav-li {
         display: none;
@@ -131,7 +145,7 @@ export default defineComponent({
 // 小屏幕
 @media screen and (min-width: 576px) and (max-width: 767px){
   .header {
-    background: rgb(239, 164, 223);
+    background: cornsilk;
     .header-right {
       .header-nav-li {
         display: none;
@@ -148,19 +162,19 @@ export default defineComponent({
 // 中等屏幕
 @media screen and (min-width: 768px) and (max-width: 991px){
   .header {
-    background: rgb(118, 163, 227);
+    background: cornsilk;
   }
 }
 // 大屏幕
 @media screen and (min-width: 992px) and (max-width: 1199px){
   .header {
-    background: rgb(226, 243, 97);
+    background: cornsilk;
   }
 }
 // 特大屏幕
 @media screen and (min-width: 1200px){
   .header {
-    background: white;
+    background: cornsilk;
   }
 }
 </style>

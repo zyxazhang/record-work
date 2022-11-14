@@ -31,5 +31,8 @@ export default defineComponent({
   flex-direction: column;
   // background-color: skyblue;
 }
+.ant-drawer-mask {
+  background: cornsilk !important;
+}
 
 </style>
