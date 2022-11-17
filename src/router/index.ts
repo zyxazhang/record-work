@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 const Home = () => import(/* webpackChunkName: "home" */ '../views/home/index.vue')
-const Example = () => import(/* webpackChunkName: "home" */ '../views/example/index.vue')
+const Record = () => import(/* webpackChunkName: "home" */ '../views/record/index.vue')
+const Example = () => import(/* webpackChunkName: "example" */ '../views/example/index.vue')
+const Admin = () => import(/* webpackChunkName: "admin" */ '../views/admin/index.vue')
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -11,7 +13,16 @@ const router = createRouter({
       component: Home,
       children: [],
       meta: {
-        title: ''
+        title: '首页'
+      }
+    },
+    {
+      path: '/record',
+      name: 'record',
+      component: Record,
+      children: [],
+      meta: {
+        title: '用例'
       }
     },
     {
@@ -20,7 +31,16 @@ const router = createRouter({
       component: Example,
       children: [],
       meta: {
-        title: ''
+        title: '用例'
+      }
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin,
+      children: [],
+      meta: {
+        title: '管理'
       }
     }
   ]

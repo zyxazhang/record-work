@@ -4,7 +4,7 @@
       <section class="content">
         <div class="content-header">
           <h1>{{detail.name}}</h1>
-          <p class="time"><i class="record-work icon-shijian"></i>{{detail.create_time}}</p>
+          <p v-if="detail.create_time" class="time"><i class="record-work icon-shijian"></i>{{detail.create_time}}</p>
         </div>
         <editor v-if="!unfold" type="view" :content="detail.content"></editor>
         <div v-else class="mask">

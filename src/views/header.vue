@@ -1,48 +1,94 @@
 <template>
   <header class="header">
-    <div class="text">RW Record Work</div>
-
+    <div class="text" @click="goToPage({path: 'home'})">RW Record Work</div>
+    <div class="header-right">
+      <ul class="header-nav-li">
+        <li v-for="router in routerList" :key="router.name" @click="goToPage(router)">{{router.name}}</li>
+      </ul>
+      <div class="header-nav-drop" @click="openMenu">
+        <i class="record-work icon-caidan"></i>
+      </div>
+      <div class="login">
+        <a-avatar size="small">
+          <template #icon><UserOutlined /></template>
+        </a-avatar>
+      </div>
+    </div>
+    <a-drawer
+      v-model:visible="menuVisible"
+      width="80%"
+      :closable="false"
+      placement="right"
+      @after-visible-change="afterVisibleChange">
+      <siderMenu :routerList="routerList"></siderMenu>
+    </a-drawer>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, readonly, ref, reactive } from 'vue'
-interface IState {
-  list: Array<Ilist>
-}
-interface Ilist {
-  name: string,
-  key?: string
-} 
-interface Tasa {
-  
+import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import siderMenu from '../components/sideBarMenu.vue'
+interface IrouterItem {
+  name?: string,
+  icon?: string,
+  path: string
 }
 export default defineComponent({
   name: 'Header',
+  components: {
+    siderMenu
+  },
   setup() {
-    const as: Ref<Ilist[]> = ref([
+    const router = useRouter()
+    const routerList: any = [
       {
-        name: 'ad',
-      }, {
-        name: 'asdaa'
-      }
-    ])
-    const state = readonly(reactive<IState>({
-      list: [
-        {
-          name: 'asd',
-          key: 'asdsd'
-        }
-      ]
-    }))
+        name: '记录',
+        icon: 'icon-test-case-secondary',
+        path: 'record'
+      },
+      {
+        name: '用例',
+        icon: 'icon-ceshi',
+        path: 'example'
+      },
+      {
+        name: '工具',
+        icon: '',
+        path: ''
+      },
+    ]
+    const menuVisible = ref<boolean>(false)
+    const openMenu = (): void => {
+      menuVisible.value = true
+    }
+    const afterVisibleChange = (bool: boolean) => {
+      console.log(bool)
+    }
+    const goToPage = (listItem: IrouterItem): void => {
+      router.push({
+        name: listItem.path
+      })
+    }
     return {
-      state,
-      as
+      routerList,
+      menuVisible,
+      openMenu,
+      afterVisibleChange,
+      goToPage
     }
   }
 })
 </script>
-
+<style lang="scss">
+.ant-drawer-body {
+  padding: 0 !important;
+  background-color: #f2f6fc;
+}
+.ant-drawer-mask {
+  background: cornsilk;
+}
+</style>
 <style lang="scss" scoped>
 .header {
   width: 100%;
@@ -51,39 +97,84 @@ export default defineComponent({
   background-color: rgb(255, 255, 255);
   border-bottom: 1px solid rgba(60, 60, 60, .12);
   padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
   .text {
     color: rgb(25, 24, 24);
     font-weight: bold;
+  }
+  .header-right {
+    display: flex;
+    .header-nav-li {
+      display: flex;
+      margin: 0;
+      li {
+        padding: 0 20px;
+        cursor: pointer;
+        &:hover {
+          color: #1e80ff;
+        }
+      }
+    }
+    .header-nav-drop {
+      display: none;
+    }
+    .login {
+      height: 100%;
+      margin-left: 20px;
+    }
   }
 }
 // 超小屏幕
 @media screen and (max-width: 575px){
   .header {
-    background-color: rgb(47, 233, 233);
+    background-color: cornsilk;
+    .header-right {
+      .header-nav-li {
+        display: none;
+      }
+      .header-nav-drop {
+        display: block;
+      }
+      .login {
+        display: none;
+      }
+    }
   }
 }
 // 小屏幕
 @media screen and (min-width: 576px) and (max-width: 767px){
   .header {
-    background: rgb(239, 164, 223);
+    background: cornsilk;
+    .header-right {
+      .header-nav-li {
+        display: none;
+      }
+      .header-nav-drop {
+        display: block;
+      }
+      .login {
+        display: none;
+      }
+    }
   }
 }
 // 中等屏幕
 @media screen and (min-width: 768px) and (max-width: 991px){
   .header {
-    background: rgb(118, 163, 227);
+    background: cornsilk;
   }
 }
 // 大屏幕
 @media screen and (min-width: 992px) and (max-width: 1199px){
   .header {
-    background: rgb(226, 243, 97);
+    background: cornsilk;
   }
 }
 // 特大屏幕
 @media screen and (min-width: 1200px){
   .header {
-    background: white;
+    background: cornsilk;
   }
 }
 </style>
