@@ -28,6 +28,7 @@ import gemoji from '@bytemd/plugin-gemoji';
 
 import "highlight.js/styles/base16/atelier-lakeside-light.css";
 import "juejin-markdown-themes/dist/arknights.min.css";
+import useMain from '../store/index'
 
 export default defineComponent({
   name: 'editor',
@@ -40,6 +41,7 @@ export default defineComponent({
     content: String
   },
   setup(props) {
+    const store = useMain()
     const { type, content } = toRefs<any>(props)
     const isEdit = ref<boolean>(type.value === 'edit')
     const viewValue = ref<any>(content)
@@ -59,14 +61,14 @@ export default defineComponent({
     const uploadImage = async (files: any) => {
       const formdata = new FormData()
       formdata.append('file', files[0])
-      // const res = await this.$store.dispatch('upload', formdata)
-      // console.log(res);
-      // return [
-      //   {
-      //     title: files.map((i) => i.name),
-      //     url: 'http://localhost:8080/' + res.img
-      //   }
-      // ]
+      const res = await store.upload(formdata)
+      return [
+        {
+          title: files.map((i: any) => i.name),
+          // 远程地址 + img转码
+          url: 'http://localhost:8080/' + res.img
+        }
+      ]
     }
     return {
       viewValue,

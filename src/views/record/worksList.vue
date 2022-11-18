@@ -27,7 +27,7 @@ export default defineComponent({
     const { recordList } = toRefs(props)
     const workList = reactive(worklist)
     const changeRecord = (item: any): void => {
-      emit('getCurRecordId', item.id)
+      emit('getCurRecordId', item.art_id)
       emit('closeUnfoldList')
     }
     return {

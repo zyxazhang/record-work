@@ -9,11 +9,17 @@ export default defineStore('main', {
 
     },
     actions: {
+        upload (params: any) {
+            return axios.post('/api/upload/file', params).then(response => response.data)
+        },
         getRecordList () {
             return axios.get('api/article/get_article_list').then(response => response.data)
         },
         getRecordDetails (params: any) {
             return axios.get('api/article/get_article_detail', { params }).then(response => response.data)
-        }
+        },
+        createRecord(params: any) {
+            return axios.post('api/article/create_article/', params).then(response => response.data)
+        },
     }
 })

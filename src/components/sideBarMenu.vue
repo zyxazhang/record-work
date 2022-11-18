@@ -6,6 +6,7 @@
         <a-avatar :size="64">
           <template #icon>
             <UserOutlined />
+            <img src="../assets/img/tag2.gif" alt="">
           </template>
         </a-avatar>
         <div class="avator-info">
@@ -15,7 +16,7 @@
       </div>
     </div>
     <div class="s-container">
-      <div class="router-list" v-for="router in routerList" :key="router.name">
+      <div class="router-list" v-for="router in routerList" :key="router.name" @click="goToPage(router)">
         <div class="r-name">{{router.name}}</div>
         <div class="r-num"></div>
         <div class="r-icon"></div>
@@ -29,15 +30,25 @@
 
 <script lang="ts">
 import { defineComponent, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'siderMenu',
   props: {
     routerList: Array
   },
-  setup(props) {
-    // const { routerList } = toRefs(props)
+  emits: ['onCloseMenu'],
+  setup(props, { emit }) {
+    const router = useRouter()
+    const { routerList } = toRefs<any>(props)
+    const goToPage = (item: any) => {
+      router.push({
+        name: item.path
+      })
+      emit('onCloseMenu')
+    }
     return {
-      // routerList
+      goToPage,
+      routerList
     }
   }
 })

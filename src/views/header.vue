@@ -20,7 +20,7 @@
       :closable="false"
       placement="right"
       @after-visible-change="afterVisibleChange">
-      <siderMenu :routerList="routerList"></siderMenu>
+      <siderMenu :routerList="routerList" @onCloseMenu="closeMenu"></siderMenu>
     </a-drawer>
   </header>
 </template>
@@ -65,6 +65,9 @@ export default defineComponent({
     const afterVisibleChange = (bool: boolean) => {
       console.log(bool)
     }
+    const closeMenu = () => {
+      menuVisible.value = false
+    }
     const goToPage = (listItem: IrouterItem): void => {
       router.push({
         name: listItem.path
@@ -75,7 +78,8 @@ export default defineComponent({
       menuVisible,
       openMenu,
       afterVisibleChange,
-      goToPage
+      goToPage,
+      closeMenu
     }
   }
 })
@@ -102,6 +106,7 @@ export default defineComponent({
   .text {
     color: rgb(25, 24, 24);
     font-weight: bold;
+    cursor: pointer;
   }
   .header-right {
     display: flex;

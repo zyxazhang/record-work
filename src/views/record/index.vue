@@ -7,18 +7,27 @@
     <div class="record-content">
       <worksList
         ref="worksList"
-        :class="[ unfold ? 'list-unfold' : 'list' ]"
+        class="work-list"
         :record-list="recordList"
         @getCurRecordId="getCurRecordId"
         @closeUnfoldList="closeUnfoldList">
       </worksList>
       <worksContent
         ref="worksContent"
-        :class="[ unfold ? 'content-unfold' : 'content' ]"
+        class="work-content"
         :unfold="unfold"
         :cur-record-id="curRecordId"
         @click="closeUnfoldList">
       </worksContent>
+      <div :class="[ 'position-list', unfold ? 'show-p-list' : '' ]"   @click="closeUnfoldList">
+        <worksList
+          class="work-list-mask"
+          ref="worksList1"
+          :record-list="recordList"
+          @getCurRecordId="getCurRecordId"
+          @closeUnfoldList="closeUnfoldList">
+        </worksList>
+      </div>
     </div>
   </div>
 </template>
@@ -79,11 +88,14 @@ export default defineComponent({
       })
       curRecordId.value = id
     }
-    onMounted(() => {
+    onMounted(async () => {
+      await getRecordList()
       if (route.query.recordId) {
         curRecordId.value = Number(route.query.recordId)
+      } else {
+        // 默认第一条
+        getCurRecordId(recordList.value[0].children[0].id)
       }
-      getRecordList()
     })
     return {
       unfold,
@@ -120,12 +132,33 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     display: flex;
-    .list-unfold {
+    position: relative;
+    .work-list {
       width: 200px;
     }
-    .content-unfold {
-      background: #333333;
-      opacity: 0.1;
+    .work-content {
+      flex: 1;
+      height: 100%;
+      overflow: auto;
+    }
+    .position-list {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      opacity: 0.8;
+      background-color: cornsilk;
+      transition: all 0.3s;
+      .work-list-mask {
+        background-color: #fff;
+        width: 300px;
+        box-shadow: 0 6px 24px 0 rgb(0 0 0 / 15%);
+      }
+    }
+    .show-p-list {
+      left: 0;
+      opacity: 1;
     }
   }
 }
@@ -137,8 +170,8 @@ export default defineComponent({
   }
   .record-content {
     height: calc(100% - 30px);
-    .list {
-      width: 0;
+    .work-list {
+      display: none;
     }
   }
 }
@@ -151,8 +184,8 @@ export default defineComponent({
   }
   .record-content {
     height: calc(100% - 30px);
-    .list {
-      width: 0;
+    .work-list {
+      display: none;
     }
   }
 }
