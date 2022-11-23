@@ -55,7 +55,7 @@ export default defineComponent({
       {
         name: '工具',
         icon: '',
-        path: ''
+        path: 'tools'
       },
     ]
     const menuVisible = ref<boolean>(false)

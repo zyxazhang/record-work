@@ -6,13 +6,14 @@
       <a-button class="btn" type="primary" @click="goToRecord">开始</a-button>
       <a-button class="btn" @click="showModal">反馈</a-button>
     </div>
-    <a-modal v-model:visible="showSuggest" title="给个建议吧😁" @ok="submit">
+    <a-modal v-model:visible="showSuggest" title="给个建议吧😁" :confirm-loading="confirmLoading" @ok="submit">
       <a-textarea v-model:value="suggestValue" placeholder="建议一下！" :rows="4" />
     </a-modal>
   </div>
 </template>
 
 <script lang="ts">
+import { message } from 'ant-design-vue'
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 export default defineComponent({
@@ -20,8 +21,9 @@ export default defineComponent({
   setup() {
     const router = useRouter()
     const showSuggest = ref<boolean>(false)
+    const confirmLoading = ref<boolean>(false)
     const suggestValue = ref<string>('')
-    const goToRecord = () => {
+    const goToRecord = (): void => {
       router.push({
         name: 'record',
         query: {
@@ -31,13 +33,20 @@ export default defineComponent({
     }
     const showModal = (): void => {
       showSuggest.value = true
-    };
-
+    }
     const submit = (): void => {
-      showSuggest.value = false
+      console.log(suggestValue)
+      confirmLoading.value = true
+      setTimeout(() => {
+        message.success('提交成功')
+        confirmLoading.value = false
+        showSuggest.value = false
+        suggestValue.value = ''
+      }, 2000)
     };
     return {
       showSuggest,
+      confirmLoading,
       suggestValue,
       goToRecord,
       showModal,

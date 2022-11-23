@@ -35,3 +35,16 @@ export interface IRecordDetail {
   star: number,
   tag: string,
 }
+
+export interface IToolsList {
+  name: string,
+  key: string,
+  time: string,
+  desc: string,
+}
+
+export interface IToolState {
+  toolList: Array<IToolsList>,
+  curSeleted: object,
+  curComponent: string
+}
