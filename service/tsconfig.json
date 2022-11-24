@@ -1,23 +1,19 @@
 {
   "compilerOptions": {
-      "module": "commonjs",
-      "noImplicitAny": true,
-      "declaration": true,
-      "removeComments": true,
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true,
-      "target": "es2016",
-      "preserveConstEnums": true,
-      "sourceMap": true,
-      "outDir": "./dist",
-      "baseUrl": "./",
-      "incremental": true
-  }, 
-  "exclude": [
-      "node_modules",
-      "**/*.spec.ts",
-      "dist"
-  ]
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "declaration": true,
+    "removeComments": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "es2016",
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true
+  },
+  "exclude": ["node_modules", "**/*.spec.ts", "dist"]
 }
