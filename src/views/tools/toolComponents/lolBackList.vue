@@ -6,7 +6,7 @@
     </div>
     <div v-if="result.state" class="result">
       <p>本对局中</p>
-      <p><span style="font-size:20px;font-weight:bold; color:black">{{result.name}}</span></p>
+      <p v-for="resultItem in result.name" :key="resultItem"><span style="font-size:20px;font-weight:bold; color:black">{{resultItem}}</span></p>
       <p>之前坑过你！！！</p>
       <p style="font-weight:bold; color:black">建议：{{result.suggest}}</p>
     </div>
@@ -25,15 +25,19 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
 import { reasonList } from '../../../constans/index'
-
+interface Istate {
+  state: boolean,
+  name: Array<string>,
+  suggest: string
+}
 export default defineComponent({
   name: 'lolBackList',
   setup() {
     const inputValue = ref<string>('')
     const reasonValue = ref<string>()
-    const result = reactive({
+    const result = reactive<Istate>({
       state: false,
-      name: '',
+      name: [],
       suggest: ''
     })
     // 是否查询
@@ -46,9 +50,11 @@ export default defineComponent({
     }
     const submit = (): void => {
       isInquire.value = true
+      const filterNames = inputValue.value.replace(/加入了队伍聊天/g, '').split('\n')
       const params = {
-        name: inputValue.value
+        name: filterNames
       }
+      console.log(params)
       result.state = true
       result.name = params.name
       result.suggest = '打洗他'
