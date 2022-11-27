@@ -10,7 +10,9 @@ const config: IJwt = {
   expiresIn: '10h',
   algorithms: ["HS256"],
   path:[
-    '/v1/record/dsetail/:id'
+    '/v1/user/login',
+    '/v1/user/register',
+    '/v1/record/detail'
   ]
 }
 export default config

@@ -11,7 +11,7 @@ app.use(express.json());
 app.use('/',jwt({
     secret: config.jwtSecretKey,
     algorithms: config.algorithms,
-    credentialsRequired: false
+    credentialsRequired: true
 }).unless({
     path: config.path
 }))
