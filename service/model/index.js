@@ -1,4 +1,4 @@
-import mysql from "mysql2";
+const mysql = require('mysql2')
 
 const db_config = {
   host: "114.132.201.39",
@@ -6,11 +6,11 @@ const db_config = {
   password: "z123456",
   database: "test-last",
 };
-var db: any;
+var db;
 (function handleDisconnect() {
   db = mysql.createConnection(db_config);
 
-  db.connect((err: any) => {
+  db.connect((err) => {
     if (err) {
       console.log("error when connecting to mysql", err);
       setTimeout(handleDisconnect, 2000);
@@ -20,7 +20,7 @@ var db: any;
     console.log("---The mysql connection has been re-established---");
     db.query("SELECT 1");
   }, 240000);
-  db.on("error", (err: any) => {
+  db.on("error", (err) => {
     console.log("db error", err);
     if (err.code === "PROTOCOL_CONNECTION_LOST") {
       handleDisconnect();
@@ -31,4 +31,4 @@ var db: any;
   console.log(`------ MySQL database connection is successful ------`);
 })();
 
-export default db;
+module.exports = db

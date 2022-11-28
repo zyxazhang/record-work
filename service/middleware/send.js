@@ -1,12 +1,11 @@
-import { Request, Response, NextFunction } from 'express'
 /*
   msg 信息
   code 状态码
   status 结果 0 | 1
   data 数据
 */
-const send = (req: Request, res: any, next: NextFunction) => {
-  res.cc = (msg: any, code: number, data: Array<any> = [], status: number = 0) => {
+module.exports.send = (req, res, next) => {
+  res.cc = (msg, code, data = [], status = 0) => {
     res.status(code).json({
       code,
       result: Boolean(status),
@@ -16,4 +15,3 @@ const send = (req: Request, res: any, next: NextFunction) => {
   }
   next()
 }
-export default send

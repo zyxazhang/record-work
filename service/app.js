@@ -1,10 +1,11 @@
-import express from "express";
-import route from "./router/index";
-import path from "path";
-import send from './middleware/send'
-import {expressjwt as jwt} from 'express-jwt'
-import config from './config/index'
-const app: express.Application = express();
+const express = require('express')
+const app = express()
+
+const path = require('path')
+const route = require('./router/index')
+const {send} = require('./middleware/send')
+var { expressjwt: jwt } = require("express-jwt")
+const config = require('./config/index')
 const port = 3002;
 
 app.use(express.json());
