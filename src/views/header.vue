@@ -9,7 +9,7 @@
         <i class="record-work icon-caidan"></i>
       </div>
       <div class="login">
-        <a-avatar size="small">
+        <a-avatar size="small" @click="openUserInfo">
           <template #icon><UserOutlined /></template>
         </a-avatar>
       </div>
@@ -22,6 +22,9 @@
       @after-visible-change="afterVisibleChange">
       <siderMenu :routerList="routerList" @onCloseMenu="closeMenu"></siderMenu>
     </a-drawer>
+    <div v-if="userInfoVisible" class="user-info">
+      hh
+    </div>
   </header>
 </template>
 
@@ -59,6 +62,7 @@ export default defineComponent({
       },
     ]
     const menuVisible = ref<boolean>(false)
+    const userInfoVisible = ref<boolean>(false)
     const openMenu = (): void => {
       menuVisible.value = true
     }
@@ -73,13 +77,18 @@ export default defineComponent({
         name: listItem.path
       })
     }
+    const openUserInfo = ():void => {
+      userInfoVisible.value = !userInfoVisible.value
+    }
     return {
       routerList,
       menuVisible,
+      userInfoVisible,
       openMenu,
       afterVisibleChange,
       goToPage,
-      closeMenu
+      closeMenu,
+      openUserInfo
     }
   }
 })
@@ -95,6 +104,7 @@ export default defineComponent({
 </style>
 <style lang="scss" scoped>
 .header {
+  position: relative;
   width: 100%;
   height: 50px;
   line-height: 50px;
@@ -128,6 +138,16 @@ export default defineComponent({
       height: 100%;
       margin-left: 20px;
     }
+  }
+  .user-info {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    width: 600px;
+    height: 400px;
+    background-color: #fff;
+    border: 1px solid #e4e6eb;
+    box-shadow: 0 0 24px rgb(81 87 103 / 16%);
   }
 }
 // 超小屏幕

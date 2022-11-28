@@ -48,3 +48,9 @@ export interface IToolState {
   curSeleted: object,
   curComponent: string
 }
+export interface IUserinfo {
+  username: string,
+  id: number | string,
+  sex: number | string,
+  desc?: string
+}

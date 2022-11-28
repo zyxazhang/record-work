@@ -5,13 +5,13 @@
       <div class="avator">
         <a-avatar :size="64">
           <template #icon>
-            <UserOutlined />
-            <img src="../assets/img/tag2.gif" alt="">
+            <img v-if="isLogin" src="../assets/img/tag2.gif" alt="">
+            <UserOutlined v-else style="font-size: 16px">未登录</UserOutlined>
           </template>
         </a-avatar>
         <div class="avator-info">
-          <h2 class="name">我可莉嗨了</h2>
-          <p class="desc">哒哒哒啦啦啦</p>
+          <h2 class="name">{{isLogin ? info.username : '我可莉嗨了' }}</h2>
+          <p class="desc">{{isLogin ? info.desc : '哒哒哒啦啦啦' }}</p>
         </div>
       </div>
     </div>
@@ -29,8 +29,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent, reactive, ref, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
+import useMain from '../store/index'
+import { IUserinfo } from '../types/index'
 export default defineComponent({
   name: 'siderMenu',
   props: {
@@ -38,16 +40,29 @@ export default defineComponent({
   },
   emits: ['onCloseMenu'],
   setup(props, { emit }) {
+    const store = useMain()
     const router = useRouter()
     const { routerList } = toRefs<any>(props)
+    const isLogin = ref<boolean>(false)
+    const info = reactive<IUserinfo>({
+      username: '',
+      id: '',
+      sex: '',
+      desc: ''
+    })
     const goToPage = (item: any) => {
       router.push({
         name: item.path
       })
       emit('onCloseMenu')
     }
+    // const getUserInfo = ():void => {
+
+    // }
     return {
       goToPage,
+      info,
+      isLogin,
       routerList
     }
   }

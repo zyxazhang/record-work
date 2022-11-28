@@ -21,5 +21,8 @@ export default defineStore('main', {
         createRecord(params: any) {
             return axios.post('api/article/create_article/', params).then(response => response.data)
         },
+        login () {
+            return axios.post('v1/user/login').then(response => response.data)
+        }
     }
 })

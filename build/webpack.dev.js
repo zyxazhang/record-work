@@ -12,7 +12,7 @@ module.exports = merge(baseConfig, {
     },
     proxy: {
       '/': {
-        target: 'http://localhost:3000',
+        target: 'http://localhost:3002',
         changeOrigin: true
       }
     },
