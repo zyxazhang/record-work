@@ -14,3 +14,10 @@ exports.GET_RECORD_DETAIL = (req, res, next) => {
         console.log(error);
     }
 }
+
+exports.CREATE_RECORD = (req, res, next) => {}
+exports.DELETE_RECORD = (req, res, next) => {}
+exports.UPDATE_RECORD = (req, res, next) => {}
+
+exports.SET_RECORD_LIST = (req, res, next) => {}
+exports.GET_RECORD_LIST = (req, res, next) => {}
