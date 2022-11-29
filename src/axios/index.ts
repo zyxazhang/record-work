@@ -1,7 +1,7 @@
 import axios from 'axios'
 import cookie from 'cookie'
 
-// axios.defaults.baseURL = 'http://114/'
+axios.defaults.baseURL = 'http://127.0.0.1:80'
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
     config.headers = {

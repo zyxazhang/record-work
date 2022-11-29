@@ -19,7 +19,7 @@ var db;
   setInterval(function () {
     console.log("---The mysql connection has been re-established---");
     db.query("SELECT 1");
-  }, 240000);
+  }, 480000);
   db.on("error", (err) => {
     console.log("db error", err);
     if (err.code === "PROTOCOL_CONNECTION_LOST") {

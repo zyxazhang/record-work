@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 
 const path = require('path')
+const cors = require('cors')
 const route = require('./router/index')
 const {send} = require('./middleware/send')
 var { expressjwt: jwt } = require("express-jwt")
@@ -16,10 +17,18 @@ app.use('/',jwt({
 }).unless({
     path: config.path
 }))
+
+app.use(cors({
+  "origin": "*",
+  "methods": "GET, HEAD, PUT, PATCH, POST, DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}))
+
 app.use(send)
 app.use("/static", express.static(path.join(__dirname, "./static")));
 app.use("/v1", route);
 
 app.listen(port, () => {
-  console.log(`------Project running in port ${port}------`);
+  console.log(`%c------ Project running in port ${port} ------`, 'color: green');
 });
