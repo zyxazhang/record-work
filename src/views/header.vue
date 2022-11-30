@@ -23,7 +23,8 @@
       <siderMenu :routerList="routerList" @onCloseMenu="closeMenu"></siderMenu>
     </a-drawer>
     <div v-if="userInfoVisible" class="user-info">
-      hh
+      <div class="user-left"></div>
+      <div class="user-right"></div>
     </div>
   </header>
 </template>
@@ -141,13 +142,24 @@ export default defineComponent({
   }
   .user-info {
     position: absolute;
+    z-index: 999;
     top: 60px;
     right: 10px;
-    width: 600px;
-    height: 400px;
+    width: 500px;
+    height: 250px;
     background-color: #fff;
     border: 1px solid #e4e6eb;
     box-shadow: 0 0 24px rgb(81 87 103 / 16%);
+    .user-left {
+      width: 200px;
+      height: 100%;
+      border-right: 1px solid #e4e6eb;
+
+    }
+    .user-right {
+      width: 300px;
+      height: 100%;
+    }
   }
 }
 // 超小屏幕
@@ -165,6 +177,9 @@ export default defineComponent({
         display: none;
       }
     }
+    .user-info {
+      display: none;
+    }
   }
 }
 // 小屏幕
@@ -181,6 +196,9 @@ export default defineComponent({
       .login {
         display: none;
       }
+    }
+    .user-info {
+      display: none;
     }
   }
 }

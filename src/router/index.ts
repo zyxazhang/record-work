@@ -4,6 +4,7 @@ const Record = () => import(/* webpackChunkName: "home" */ '../views/record/inde
 const Example = () => import(/* webpackChunkName: "example" */ '../views/example/index.vue')
 const Admin = () => import(/* webpackChunkName: "admin" */ '../views/admin/index.vue')
 const Tools = () => import(/* webpackChunkName: "admin" */ '../views/tools/index.vue')
+const Login = () => import(/* webpackChunkName: "admin" */ '../components/login.vue')
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -51,6 +52,15 @@ const router = createRouter({
       children: [],
       meta: {
         title: '工具'
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      children: [],
+      meta: {
+        title: '登录'
       }
     }
   ]

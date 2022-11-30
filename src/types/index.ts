@@ -54,3 +54,8 @@ export interface IUserinfo {
   sex: number | string,
   desc?: string
 }
+// 登录
+export interface TLogin {
+  username: string | number,
+  password: string | number
+}

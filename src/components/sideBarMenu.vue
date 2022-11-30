@@ -5,13 +5,13 @@
       <div class="avator">
         <a-avatar :size="64">
           <template #icon>
-            <img v-if="isLogin" src="../assets/img/tag2.gif" alt="">
-            <UserOutlined v-else style="font-size: 16px">未登录</UserOutlined>
+            <img v-if="store.islogin" src="../assets/img/tag2.gif" alt="">
+            <UserOutlined v-else style="font-size: 16px" @click="goToPage({path: 'login'})">未登录</UserOutlined>
           </template>
         </a-avatar>
         <div class="avator-info">
-          <h2 class="name">{{isLogin ? info.username : '我可莉嗨了' }}</h2>
-          <p class="desc">{{isLogin ? info.desc : '哒哒哒啦啦啦' }}</p>
+          <h2 class="name">{{store.islogin ? store.userInfo.username : '--' }}</h2>
+          <p class="desc">{{store.islogin ? store.userInfo.desc : '--' }}</p>
         </div>
       </div>
     </div>
@@ -23,16 +23,16 @@
       </div>
     </div>
     <div class="s-container">
-      <div class="logout">退出登录</div>
+      <div class="logout" @click="logout">退出登录</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs } from 'vue'
+import { defineComponent, reactive, ref, toRefs, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import useMain from '../store/index'
-import { IUserinfo } from '../types/index'
+// import { IUserinfo } from '../types/index'
 export default defineComponent({
   name: 'siderMenu',
   props: {
@@ -43,26 +43,22 @@ export default defineComponent({
     const store = useMain()
     const router = useRouter()
     const { routerList } = toRefs<any>(props)
-    const isLogin = ref<boolean>(false)
-    const info = reactive<IUserinfo>({
-      username: '',
-      id: '',
-      sex: '',
-      desc: ''
-    })
     const goToPage = (item: any) => {
       router.push({
-        name: item.path
+        name: item.path,
+        query: {
+          from: 'sider'
+        }
       })
       emit('onCloseMenu')
     }
-    // const getUserInfo = ():void => {
-
-    // }
+    const logout = () => {
+      store.setUserInfo({}, false)
+    }
     return {
       goToPage,
-      info,
-      isLogin,
+      logout,
+      store,
       routerList
     }
   }

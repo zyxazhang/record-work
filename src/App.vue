@@ -1,13 +1,14 @@
 <template>
   <div class="page">
-    <workHeader></workHeader>
+    <workHeader v-if="isShowHead"></workHeader>
     <router-view></router-view>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, ref, watch } from 'vue'
 import workHeader from './views/header.vue'
+import { useRoute } from 'vue-router'
 export default defineComponent({
   name: 'App',
   components: {
@@ -16,6 +17,19 @@ export default defineComponent({
   props: {},
   emits: {},
   setup() {
+    const route = useRoute()
+    const isShowHead = ref<boolean>(true)
+    const exlist = reactive<Array<string>>([
+      '/login'
+    ])
+    watch(route, (r) => {
+      isShowHead.value = !exlist.includes(r.fullPath.split('?')[0])
+    }, {
+      immediate: true
+    })
+    return {
+      isShowHead
+    }
   }
 })
 </script>

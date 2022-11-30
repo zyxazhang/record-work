@@ -1,7 +1,7 @@
 <template>
   <div class="editor">
-    <a-modal v-model:visible="fromModalVisible" title="就差这步啦" :maskClosable="false" :destroyOnClose="true" ok-text="确认" cancel-text="取消"
-      @ok="submitForm">
+    <a-modal v-model:visible="fromModalVisible" layout="horizontal" title="就差这步啦" :maskClosable="false"
+      :destroyOnClose="true" ok-text="确认" cancel-text="取消" @ok="submitForm">
       <a-form ref="formRef" name="custom-validation" :model="fieldInfo" @finish="handleFinish"
         @finishFailed="handleFinishFailed">
         <a-form-item has-feedback label="标题" name="name" :rules="[{ required: true, message: '请输入标题!' }]">
@@ -25,66 +25,74 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, reactive } from 'vue'
-import Editor from '../../components/editor.vue'
-import { tagList } from '../../constans/index'
-import useMain from '../../store/index'
+import { message } from "ant-design-vue";
+import { defineComponent, onMounted, ref, reactive } from "vue";
+import Editor from "../../components/editor.vue";
+import { tagList } from "../../constans/index";
+import useMain from "../../store/index";
 
 interface IFieldState {
-  name: string,
-  tag: string,
-  img: string
+  name: string;
+  tag: string;
+  img: string;
 }
 
 export default defineComponent({
-  name: 'example',
+  name: "example",
   components: {
-    Editor
+    Editor,
   },
   setup() {
-    const store = useMain()
-    const editor = ref()
+    const store = useMain();
+    const editor = ref();
     const fieldInfo = reactive<IFieldState>({
-      name: '',
-      tag: '',
-      img: ''
-    })
-    const tags = ref<any>(tagList)
+      name: "",
+      tag: "",
+      img: "",
+    });
+    const tags = ref<any>(tagList);
     // 表单 modal
-    const fromModalVisible = ref<boolean>(false)
-    const submitLoading = ref<boolean>(false)
+    const fromModalVisible = ref<boolean>(false);
+    const submitLoading = ref<boolean>(false);
     const showFormModal = () => {
-      fieldInfo.name = ''
-      fieldInfo.tag = ''
-      fieldInfo.img = ''
-      fromModalVisible.value = true
-    }
+      fieldInfo.name = "";
+      fieldInfo.tag = "";
+      fieldInfo.img = "";
+      fromModalVisible.value = true;
+    };
     const submitForm = () => {
-      const { name, tag, img } = fieldInfo
-      const params = {
-        content: editor.value.editValue,
-        author: 'admin',
-        name,
-        tag,
-        pictrue: img,
-        desc: ''
+      const { name, tag, img } = fieldInfo;
+      if (name && tag && img && editor.value.editValue) {
+        const params = {
+          content: editor.value.editValue,
+          author: store.userInfo.username,
+          name,
+          tag,
+          pictrue: img,
+          desc: "",
+        };
+        store
+          .createRecord(params)
+          .then((res) => {
+            message.success(res.message)
+          })
+          .catch((e) => console.log(e))
+          .finally(() => {
+            fromModalVisible.value = false;
+          });
+      } else {
+        message.warning("请输入或选择内容");
       }
-      console.log(params)
-      store.createRecord(params).then(res => {
-        console.log(res)
-      }).catch(e => console.log(e)).finally(() => {
-        fromModalVisible.value = false
-      })
-    }
+    };
     const handleFinish = (values: any) => {
-      console.log(values)
-    }
+      console.log(values);
+    };
     const handleFinishFailed = (errorInfo: any) => {
-      console.log('Failed:', errorInfo)
-    }
+      console.log("Failed:", errorInfo);
+    };
     onMounted(() => {
-      console.log(editor)
-    })
+      console.log(editor);
+    });
     return {
       editor,
       tags,
@@ -94,11 +102,10 @@ export default defineComponent({
       showFormModal,
       submitForm,
       handleFinish,
-      handleFinishFailed
-    }
-  }
-})
-
+      handleFinishFailed,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>
