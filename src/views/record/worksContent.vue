@@ -68,7 +68,6 @@ export default defineComponent({
   .content-header {
     .time {
       font-size: 10px;
-
       i {
         font-size: 10px;
         margin-right: 5px;

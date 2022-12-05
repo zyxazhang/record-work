@@ -32,6 +32,12 @@ exports.USER_REGISTER = (req, res, next) => {
       }
       if (result.length <= 0) {
         req.body.password = bcrypt.hashSync(password, 10)
+        const params = {
+          sex: 1,
+          picture: '',
+          create_time: new Date(),
+          auth_field: ''
+        }
         const registerStr = 'INSERT INTO users SET ?'
         db.query(registerStr, req.body, (err, result) => {
           if (err) {

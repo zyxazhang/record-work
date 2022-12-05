@@ -3,7 +3,7 @@
     <div class="sider-img"></div>
     <div class="s-container">
       <div class="avator">
-        <a-avatar :size="64">
+        <a-avatar :size="64" style="line-height:52px; cursor:pointer">
           <template #icon>
             <img v-if="store.islogin" src="../assets/img/tag2.gif" alt="">
             <UserOutlined v-else style="font-size: 16px" @click="goToPage({path: 'login'})">未登录</UserOutlined>
@@ -127,6 +127,7 @@ export default defineComponent({
   .logout {
     text-align: center;
     font-weight: 600;
+    cursor: pointer;
   }
 }
 </style>
