@@ -109,7 +109,7 @@ export default defineComponent({
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background-color: rgb(255, 255, 255);
+  background-color:#1e1e1e;
   border-bottom: 1px solid rgba(60, 60, 60, .12);
   padding: 0 20px;
   display: flex;
@@ -165,7 +165,7 @@ export default defineComponent({
 // 超小屏幕
 @media screen and (max-width: 575px){
   .header {
-    background-color: cornsilk;
+    // background-color: cornsilk;
     .header-right {
       .header-nav-li {
         display: none;
@@ -185,7 +185,7 @@ export default defineComponent({
 // 小屏幕
 @media screen and (min-width: 576px) and (max-width: 767px){
   .header {
-    background: cornsilk;
+    // background: cornsilk;
     .header-right {
       .header-nav-li {
         display: none;
@@ -205,19 +205,19 @@ export default defineComponent({
 // 中等屏幕
 @media screen and (min-width: 768px) and (max-width: 991px){
   .header {
-    background: cornsilk;
+    // background: cornsilk;
   }
 }
 // 大屏幕
 @media screen and (min-width: 992px) and (max-width: 1199px){
   .header {
-    background: cornsilk;
+    // background: cornsilk;
   }
 }
 // 特大屏幕
 @media screen and (min-width: 1200px){
   .header {
-    background: cornsilk;
+    // background: cornsilk;
   }
 }
 </style>

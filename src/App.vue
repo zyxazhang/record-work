@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, watch } from 'vue'
-import workHeader from './views/header.vue'
+import workHeader from './layout/header.vue'
 import { useRoute } from 'vue-router'
 export default defineComponent({
   name: 'App',
