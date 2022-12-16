@@ -1,6 +1,7 @@
 <template>
   <div class="card">
-    <img src="../../assets/img/siderbg.jpg" alt="" class="img">
+    <!-- <img v-if="" :src="" alt="" class="img" @click="goToDetail"> -->
+    <img src="../../assets/img/siderbg.jpg" alt="" class="img" @click="goToDetail">
     <div class="content">
         <div class="left">
             <div class="date">
@@ -12,13 +13,19 @@
                 <p class="nums">156</p>
             </div>
         </div>
-        <div class="right"></div>
+        <div class="right">
+            <div class="title">这边的呼叫文革的改革的大吴大苏打吴大维阿文染发我是大鳄哇让哥窟尬舞</div>
+            <div class="creator">admin</div>
+            <div class="desc">fgwaekjhzd uqagweigwja uqgawuegqwr</div>
+            <div class="link" @click="goToDetail">-> Read more</div>
+        </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 export default defineComponent({
     name: 'Card',
     props: {
@@ -26,12 +33,22 @@ export default defineComponent({
             type: Object,
             default: {}
         }
-    },
+    },                                                                                                                                                                                                                                
     setup(props) {
+        const router = useRouter()
         // console.log(props)
         // const info = r
+        const goToDetail = () => {
+            router.push({
+                name: 'detail',
+                query: {
+                    r_id: 55,
+                    from: 'home'
+                }
+            })
+        }
         return {
-
+            goToDetail
         }
     }
 })
@@ -51,6 +68,7 @@ export default defineComponent({
         width: 100%;
         height: 200px;
         object-fit: cover;
+        cursor: pointer;
     }
     .content {
         width: 100%;
@@ -103,21 +121,25 @@ export default defineComponent({
             width: 400px;
             height: 100%;
             display: flex;
+            padding: 0 10px;
             flex-direction: column;
             justify-content: space-between;
             .title {
                 font-size: 20px;
                 font-weight: bold;
+                color: rgb(92, 91, 91);
             }
             .creator {
                 font-size: 10px;
-                color: #eee;
+                color: rgb(158, 158, 158);
             }
             .desc {
-
+                font-size: 14px;
+                color: rgb(118, 119, 119);
             }
             .link {
-
+                font-weight: bold;
+                cursor: pointer;
             }
         }
     }

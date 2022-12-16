@@ -1,9 +1,9 @@
 @font-face {
   font-family: "record-work"; /* Project id 3733553 */
-  src: url('iconfont.woff2?t=1668131552865') format('woff2'),
-       url('iconfont.woff?t=1668131552865') format('woff'),
-       url('iconfont.ttf?t=1668131552865') format('truetype'),
-       url('iconfont.svg?t=1668131552865#record-work') format('svg');
+  src: url('iconfont.woff2?t=1671174659617') format('woff2'),
+       url('iconfont.woff?t=1671174659617') format('woff'),
+       url('iconfont.ttf?t=1671174659617') format('truetype'),
+       url('iconfont.svg?t=1671174659617#record-work') format('svg');
 }
 
 .record-work {
@@ -12,6 +12,42 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bianjimoban:before {
+  content: "\e601";
+}
+
+.icon-yonghu:before {
+  content: "\e66f";
+}
+
+.icon-mima:before {
+  content: "\e63d";
+}
+
+.icon-shezhi:before {
+  content: "\e60f";
+}
+
+.icon-shijian1:before {
+  content: "\e87e";
+}
+
+.icon-fanhui:before {
+  content: "\e800";
+}
+
+.icon-tousujianyi:before {
+  content: "\e603";
+}
+
+.icon-icfemale:before {
+  content: "\e768";
+}
+
+.icon-icmale:before {
+  content: "\e769";
 }
 
 .icon-shijian:before {

@@ -48,5 +48,8 @@ export default defineComponent({
 .ant-drawer-mask {
   background: cornsilk !important;
 }
+.ant-modal-header {
+  background: url('./assets/img/dialog-header.png') !important;
+}
 
 </style>
