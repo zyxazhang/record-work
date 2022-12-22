@@ -88,7 +88,7 @@ exports.USER_UPDATE_PASSWORD = (req, res, next) => {
 exports.GET_USER_INFO = (req, res, next) => {
   try {
     const id = req.auth.id
-    const queryStr = 'SELECT id,username,sex FROM users WHERE id=?'
+    const queryStr = 'SELECT * FROM users WHERE id=?'
     db.query(queryStr, id, (err, result) => {
       if (err) {
         return res.cc('Query failure', 500)
