@@ -23,6 +23,12 @@ export const toolList = [
     desc: "",
     time: "2023-01-05 21:25:54",
   },
+  {
+    name: "红包",
+    key: "locky",
+    desc: "",
+    time: "2023-01-05 21:25:54",
+  },
 ];
 
 

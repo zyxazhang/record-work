@@ -15,11 +15,13 @@
 import { defineComponent, ref, toRefs } from 'vue'
 import lolBackList from './lolBackList.vue'
 import imageUpload from './imageUpload.vue'
+import locky from './locky.vue'
 export default defineComponent({
   name: 'toolComponent',
   components: {
     lolBackList,
-    imageUpload
+    imageUpload,
+    locky
   },
   props: {
     curKey: String,
