@@ -14,7 +14,6 @@
     <a-modal
       v-model:visible="isView" 
       :title="tools.curSeleted.name"
-      width="50%"
       centered
       :footer="null">
       <div class="tool-view">

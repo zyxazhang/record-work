@@ -59,7 +59,12 @@ const router = createRouter({
       path: '/tools',
       name: 'tools',
       component: Tools,
-      children: [],
+      children: [
+        // {
+        //   path: '',
+        //   name: ''
+        // }
+      ],
       meta: {
         title: '工具'
       }

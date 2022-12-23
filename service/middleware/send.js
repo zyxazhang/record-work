@@ -5,7 +5,7 @@
   data 数据
 */
 module.exports.send = (req, res, next) => {
-  res.cc = (msg, code, data = [], status = 0) => {
+  res.cc = (msg, code = 200, data = [], status = 0) => {
     res.status(code).json({
       code,
       result: Boolean(status),

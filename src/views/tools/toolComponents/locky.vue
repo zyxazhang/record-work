@@ -90,7 +90,7 @@ export default defineComponent({
       }, 3000)
     }
     const endCallback = (prize: any) => {
-      console.log(prize)
+      console.log(prize.fonts[0].text)
     }
     return {
       count,
@@ -108,6 +108,5 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   text-align: center;
-  // background: url('https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d482c51cd47345cf94483218d5f6fc39~tplv-k3u1fbpfcp-no-mark:240:240:240:240.awebp?');
 }
 </style>
