@@ -2,7 +2,7 @@ const query = require('../model/index')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('../config/index')
-const e = require('express')
+const InitUser = require('../middleware/initUser')
 // 用户登录
 exports.USER_LOGIN = async (req, res, next) => {
   try {
@@ -40,8 +40,14 @@ exports.USER_REGISTER = async (req, res, next) => {
       }
       const registerStr = 'INSERT INTO users SET ?'
       const registerResult = await query(registerStr, params)
+      // console.log(registerResult);
       if (registerResult.affectedRows === 1) {
-        res.cc('注册成功', 200, { ...result }, 1)
+        const initUser = new InitUser(registerResult.insertId)
+        if (await initUser.isOver) {
+          return res.cc('注册成功', 200, { ...result }, 1)
+        } else {
+          return res.cc('初始化错误', 200)
+        }
       }
     } else {
       return res.cc('该用户名已存在', 200)
@@ -54,7 +60,7 @@ exports.USER_REGISTER = async (req, res, next) => {
 exports.USER_LOGOUT = async (req, res, next) => {
   try {
     const deleteStr = 'DELETE FROM users WHERE id=?'
-    const result = await query(req.auth.id)
+    const result = await query(deleteStr, req.auth.id)
     if (result.affectedRows === 1) {
      return res.cc('注销成功', 200, { ...result }, 1)
     }

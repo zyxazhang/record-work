@@ -7,7 +7,7 @@
           <div class="left">
             <div class="l-opear">
               <div class="go-back">
-                <i class="goback-icon record-work icon-fanhuidingbu" @click="goToBack"></i>
+                <i class="goback-icon record-work icon-fanhui" @click="goToBack"></i>
               </div>
               <div class="date">
                 <p class="mouth">{{detail.date.mouth}}</p>

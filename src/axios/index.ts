@@ -2,7 +2,7 @@ import { notification } from 'ant-design-vue';
 import axios from 'axios'
 import cookie from 'cookie'
 
-// axios.defaults.baseURL = 'http://114.132.201.39/'
+axios.defaults.baseURL = 'http://114.132.201.39/'
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
     config.headers = {
