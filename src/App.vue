@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, watch } from 'vue'
-import workHeader from './views/header.vue'
+import workHeader from './layout/header.vue'
 import { useRoute } from 'vue-router'
 export default defineComponent({
   name: 'App',
@@ -47,6 +47,9 @@ export default defineComponent({
 }
 .ant-drawer-mask {
   background: cornsilk !important;
+}
+.ant-modal-header {
+  background: url('./assets/img/dialog-header.png') !important;
 }
 
 </style>

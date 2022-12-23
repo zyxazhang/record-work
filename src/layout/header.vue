@@ -3,35 +3,27 @@
     <div class="text" @click="goToPage({path: 'home'})">RW Record Work</div>
     <div class="header-right">
       <ul class="header-nav-li">
-        <li v-for="router in routerList" :key="router.name" @click="goToPage(router)">{{router.name}}</li>
+        <li v-for="router in routerList" :key="router.name" @click="goToPage(router)" :title="router.name">{{router.name}}</li>
+        <!-- <li></li> -->
       </ul>
-      <div class="header-nav-drop" @click="openMenu">
-        <i class="record-work icon-caidan"></i>
-      </div>
+
       <div class="login">
-        <a-avatar size="small" @click="openUserInfo">
-          <template #icon><UserOutlined /></template>
+        <a-avatar @click="goToPage({path: 'login'})">
+          <template #icon>
+            <UserOutlined v-if="!store.islogin" />
+            <img v-else src="../assets/img/tag2.gif" alt="">
+          </template>
         </a-avatar>
       </div>
-    </div>
-    <a-drawer
-      v-model:visible="menuVisible"
-      width="80%"
-      :closable="false"
-      placement="right"
-      @after-visible-change="afterVisibleChange">
-      <siderMenu :routerList="routerList" @onCloseMenu="closeMenu"></siderMenu>
-    </a-drawer>
-    <div v-if="userInfoVisible" class="user-info">
-      <div class="user-left"></div>
-      <div class="user-right"></div>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
+import cookie from 'cookie'
 import { useRouter } from 'vue-router'
+import useMain from '../store/index'
 import siderMenu from '../components/sideBarMenu.vue'
 interface IrouterItem {
   name?: string,
@@ -44,6 +36,8 @@ export default defineComponent({
     siderMenu
   },
   setup() {
+    const store = useMain()
+    console.log(store)
     const router = useRouter()
     const routerList: any = [
       {
@@ -63,33 +57,35 @@ export default defineComponent({
       },
     ]
     const menuVisible = ref<boolean>(false)
-    const userInfoVisible = ref<boolean>(false)
     const openMenu = (): void => {
       menuVisible.value = true
     }
     const afterVisibleChange = (bool: boolean) => {
       console.log(bool)
     }
-    const closeMenu = () => {
-      menuVisible.value = false
-    }
     const goToPage = (listItem: IrouterItem): void => {
+      if (store.islogin && listItem.path === 'login') {
+        router.push({
+          name: 'admin'
+        })
+        return
+      }
       router.push({
         name: listItem.path
       })
     }
-    const openUserInfo = ():void => {
-      userInfoVisible.value = !userInfoVisible.value
-    }
+    onMounted(async () => {
+      const tokenarr: any = document.cookie.match(new RegExp("(^| )" + 'token' + "=([^;]*)(;|$)"))
+      if (tokenarr && tokenarr[2]) {
+        await store.getUserInfo()
+      }
+    })
     return {
+      store,
       routerList,
-      menuVisible,
-      userInfoVisible,
       openMenu,
       afterVisibleChange,
-      goToPage,
-      closeMenu,
-      openUserInfo
+      goToPage
     }
   }
 })
@@ -107,15 +103,15 @@ export default defineComponent({
 .header {
   position: relative;
   width: 100%;
-  height: 50px;
-  line-height: 50px;
-  background-color: rgb(255, 255, 255);
+  height: 60px;
+  line-height: 60px;
+  background-color:#1e1e1e;
   border-bottom: 1px solid rgba(60, 60, 60, .12);
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
   .text {
-    color: rgb(25, 24, 24);
+    color: rgb(212, 212, 212);
     font-weight: bold;
     cursor: pointer;
   }
@@ -126,9 +122,10 @@ export default defineComponent({
       margin: 0;
       li {
         padding: 0 20px;
+        color: #c3c4c4;
         cursor: pointer;
         &:hover {
-          color: #1e80ff;
+          color: #fff;
         }
       }
     }
@@ -160,64 +157,6 @@ export default defineComponent({
       width: 300px;
       height: 100%;
     }
-  }
-}
-// 超小屏幕
-@media screen and (max-width: 575px){
-  .header {
-    background-color: cornsilk;
-    .header-right {
-      .header-nav-li {
-        display: none;
-      }
-      .header-nav-drop {
-        display: block;
-      }
-      .login {
-        display: none;
-      }
-    }
-    .user-info {
-      display: none;
-    }
-  }
-}
-// 小屏幕
-@media screen and (min-width: 576px) and (max-width: 767px){
-  .header {
-    background: cornsilk;
-    .header-right {
-      .header-nav-li {
-        display: none;
-      }
-      .header-nav-drop {
-        display: block;
-      }
-      .login {
-        display: none;
-      }
-    }
-    .user-info {
-      display: none;
-    }
-  }
-}
-// 中等屏幕
-@media screen and (min-width: 768px) and (max-width: 991px){
-  .header {
-    background: cornsilk;
-  }
-}
-// 大屏幕
-@media screen and (min-width: 992px) and (max-width: 1199px){
-  .header {
-    background: cornsilk;
-  }
-}
-// 特大屏幕
-@media screen and (min-width: 1200px){
-  .header {
-    background: cornsilk;
   }
 }
 </style>

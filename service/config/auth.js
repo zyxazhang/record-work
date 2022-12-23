@@ -5,6 +5,7 @@ const whiteList = [
   '/v1/suggestion',
   '/v1/record/detail',
   '/v1/record/list',
-  '/favicon.ico'
+  '/favicon.ico',
+  '/v1/lucky/prize'
 ]
 module.exports = whiteList

@@ -30,8 +30,10 @@ export default defineStore('main', {
         login (params: TLogin) {
             return axios.post('v1/user/login', params).then(response => response.data)
         },
-        getUserInfo () {
-            return axios.post('v1/user/info').then(response => response.data)
+        async getUserInfo () {
+            const res = await axios.get('v1/user/info').then(response => response.data)
+            console.log(res)
+            this.setUserInfo(res.data, true)
         },
 
     }

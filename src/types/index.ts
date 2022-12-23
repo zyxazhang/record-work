@@ -45,7 +45,7 @@ export interface IToolsList {
 
 export interface IToolState {
   toolList: Array<IToolsList>,
-  curSeleted: object,
+  curSeleted: IToolsList,
   curComponent: string
 }
 export interface IUserinfo {
@@ -58,4 +58,17 @@ export interface IUserinfo {
 export interface TLogin {
   username: string | number,
   password: string | number
+}
+
+export interface IrecordDate {
+  title: string,
+  content: string,
+  date: {
+    mouth: string,
+    day: string,
+  },
+  favorite: {
+    is: boolean,
+    nums: number
+  }
 }

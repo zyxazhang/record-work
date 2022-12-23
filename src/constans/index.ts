@@ -23,6 +23,12 @@ export const toolList = [
     desc: "",
     time: "2023-01-05 21:25:54",
   },
+  {
+    name: "红包",
+    key: "locky",
+    desc: "",
+    time: "2023-01-05 21:25:54",
+  },
 ];
 
 
@@ -44,3 +50,19 @@ export const reasonList = [
         value: 'actor'
     },
 ]
+
+// 月份 number -> ^en
+export const monthMap: any = {
+  1: 'JAN',
+  2: 'FEB',
+  3: 'MAR',
+  4: 'APR',
+  5: 'MAY',
+  6: 'JUN',
+  7: 'JUL',
+  8: 'AUG',
+  9: 'SEPT',
+  10: 'OCT',
+  11: 'NOV',
+  12: 'DEC'
+}
