@@ -66,7 +66,7 @@ export default defineComponent({
         {
           title: files.map((i: any) => i.name),
           // 远程地址 + img转码
-          url: 'http://localhost:8080/' + res.img
+          url: res.data.url
         }
       ]
     }

@@ -23,7 +23,7 @@ const upload = multer({
 router.post("/file", upload.single("file"), (req, res) => {
   try {
     if (!req.file) return res.cc('上传失败', 200);
-    const url = req.file.destination + "/" + req.file.filename;
+    const url = 'http://' + req.headers.host + '/' + req.file.destination + "/" + req.file.filename;
     res.cc('success', 200, { url }, 1)
   } catch (error) {
     console.log(error, "upload");

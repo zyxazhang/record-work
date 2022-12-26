@@ -8,7 +8,7 @@ module.exports = merge(baseConfig, {
   devtool: 'inline-source-map',
   devServer: {
     static: {
-      directory: path.join(__dirname, 'public'),
+      directory: path.join(__dirname, './static'),
     },
     proxy: {
       '/': {

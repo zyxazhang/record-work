@@ -10,6 +10,7 @@ const config = require('./config/index')
 const port = 3002;
 
 app.use(express.json());
+app.use("/static", express.static(path.join(__dirname, "./static")));
 app.use('/',jwt({
     secret: config.jwtSecretKey,
     algorithms: config.algorithms,
@@ -26,9 +27,8 @@ app.use(cors({
 }))
 
 app.use(send)
-app.use("/static", express.static(path.join(__dirname, "./static")));
 app.use("/v1", route);
 
 app.listen(port, () => {
-  console.log(`%c------ Project running in port ${port} ------`, 'color: green');
+  console.log(`%c----- Project running in port ${port} ------`, 'color: green');
 });
