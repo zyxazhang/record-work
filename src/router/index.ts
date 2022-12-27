@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 const Home = () => import(/* webpackChunkName: "home" */ '../views/home/index.vue')
 const Detail = () => import(/* webpackChunkName: "home" */ '../views/detail/index.vue')
-const Record = () => import(/* webpackChunkName: "home" */ '../views/record/index.vue')
+const Funcs = () => import(/* webpackChunkName: "home" */ '../views/funcs/index.vue')
 const Example = () => import(/* webpackChunkName: "example" */ '../views/example/index.vue')
 const Admin = () => import(/* webpackChunkName: "admin" */ '../views/admin/index.vue')
 const Tools = () => import(/* webpackChunkName: "admin" */ '../views/tools/index.vue')
@@ -29,9 +29,9 @@ const router = createRouter({
       }
     },
     {
-      path: '/record',
-      name: 'record',
-      component: Record,
+      path: '/funcs',
+      name: 'funcs',
+      component: Funcs,
       children: [],
       meta: {
         title: '用例'

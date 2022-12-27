@@ -8,7 +8,6 @@ const {send} = require('./middleware/send')
 var { expressjwt: jwt } = require("express-jwt")
 const config = require('./config/index')
 const port = 3002;
-
 app.use(express.json());
 app.use("/static", express.static(path.join(__dirname, "./static")));
 app.use('/',jwt({
@@ -21,10 +20,11 @@ app.use('/',jwt({
 
 app.use(cors({
   "origin": "*",
-  "methods": "GET, HEAD, PUT, PATCH, POST, DELETE",
+  "methods": "GET, HEAD, PUT, PATCH, POST, DELETE, UPDATE",
   "preflightContinue": false,
   "optionsSuccessStatus": 204
 }))
+
 
 app.use(send)
 app.use("/v1", route);

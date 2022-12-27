@@ -12,7 +12,7 @@
       <div class="content">
         <a-spin v-if="tagLoading" class="loading" size="large" />
         <div v-else class="list">
-          <card v-for="tags in tagList" :key="tags.key" :item="tags"></card>
+          <card v-for="list in typelist.displayList" :key="list.key" :item="list"></card>
         </div>
       </div>
     </div>
@@ -20,15 +20,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, onMounted, reactive, ref, watch } from 'vue'
 import Card from './Card.vue'
 import welcome from '../../components/welcome.vue'
+import useMain from '../../store/index'
 const tags = [
   { name: 'All', key: 'all' },
   { name: 'Vue', key: 'vue' },
   { name: 'Js', key: 'js' },
   { name: 'Html', key: 'html' },
-  { name: 'Css', key: 'css' }
+  { name: 'Css', key: 'css' },
+  { name: 'Python', key: 'py' }
 ]
 export default defineComponent({
   name: 'home',
@@ -37,23 +39,58 @@ export default defineComponent({
     Card
   },
   setup() {
+    const store = useMain()
     // 切换tag
     const tagKey = ref<string>('all')
     const tagList = reactive<any>(tags)
     const changeTag = (key: string): void => {
       tagLoading.value = true
       tagKey.value = key
-      console.log(key)
+      typelist.displayList = typelist[key]
       setTimeout(() => {
         tagLoading.value = false
-      }, 1000);
+      }, 200);
     }
-
     // loading状态
     const tagLoading = ref<boolean>(false)
+    // 分类列表
+    const typelist = reactive<any>({
+      displayList: [],all: [], vue: [], html: [], js: [], css: [], py: []
+    })
+    const getRecordList = async () => {
+      const res = await store.getRecordList()
+      typelist.all = res.data
+      res.data.forEach((item: any) => {
+        switch (item.tag) {
+          case 'vue':
+            typelist.vue.push(item)
+            break;
+          case 'js':
+            typelist.js.push(item)
+            break;
+          case 'html':
+            typelist.html.push(item)
+            break;
+          case 'css':
+            typelist.css.push(item)
+            break;
+          case 'py':
+            typelist.py.push(item)
+            break;
+          default:
+            break;
+        }
+      });
+
+    }
+    onMounted(async () => {
+      await getRecordList()
+      changeTag(tagKey.value)
+    })
     return {
       tagKey,
       tagList,
+      typelist,
       changeTag,
       tagLoading
     }

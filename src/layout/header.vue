@@ -21,7 +21,6 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-import cookie from 'cookie'
 import { useRouter } from 'vue-router'
 import useMain from '../store/index'
 import siderMenu from '../components/sideBarMenu.vue'
@@ -41,12 +40,12 @@ export default defineComponent({
     const router = useRouter()
     const routerList: any = [
       {
-        name: '记录',
+        name: '常用功能',
         icon: 'icon-test-case-secondary',
-        path: 'record'
+        path: 'funcs'
       },
       {
-        name: '用例',
+        name: '记录',
         icon: 'icon-ceshi',
         path: 'example'
       },

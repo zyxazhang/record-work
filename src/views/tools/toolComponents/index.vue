@@ -1,14 +1,8 @@
 <template>
-  <div class="tools-component-contanier">
-    <div class="c-header">
-      <span>{{curSeleted.name}}</span>
-      <i class="record-work icon-react" title="close" style="cursor: pointer" @click="closeView"></i>
-    </div>
-    <component
-      class="view-content"
-      :is="curKey"
-    ></component>
-  </div>
+  <component
+    class="view-content"
+    :is="curKey"
+  ></component>
 </template>
 
 <script lang="ts">
@@ -42,19 +36,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.tools-component-contanier {
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 15%);
-  .c-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2px 5px;
-    background-color: #eee;
-  }
-  .view-content {
-    padding: 10px;
-  }
-}
 </style>

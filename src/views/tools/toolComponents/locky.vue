@@ -1,6 +1,6 @@
 <template>
   <div id="locky">
-    <LuckyGrid ref="myLucky" width="500px" height="500px" rows="3" cols="3" style="margin: 0 auto;" :prizes="prizes"
+    <LuckyGrid ref="myLucky" width="400px" height="400px" rows="3" cols="3" style="margin: 0 auto;" :prizes="prizes"
       :blocks="blocks" :buttons="buttons" @start="startCallback" @end="endCallback" />
     <div class="count">你共拥有{{ count }}次机会</div>
   </div>
