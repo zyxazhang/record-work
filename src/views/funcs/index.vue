@@ -15,13 +15,20 @@
         <div v-else class="content">
           <a-collapse v-model:activeKey="activeKey">
             <a-collapse-panel key="1" header="功能效果">
-              <p style="text-align: center">{{ '请期待。。。' }}</p>
+              <templateVue></templateVue>
             </a-collapse-panel>
-            <a-collapse-panel key="2" header="完整代码">
+            <a-collapse-panel key="2" header="实现思路">
+              <!-- <p style="text-align: center">{{ '请期待。。。' }}</p> -->
+              <p>👁️ 黄金分割时间和官府</p>
+              <p>👁️ 额阿萨大塞黄金分割时间和官府大卫他晚上然而我</p>
+              <p>👁️ 达瓦让微软黄金分割时间和官府大微软福娃二</p>
+              <p></p>
+              <p></p>
+            </a-collapse-panel>
+            <a-collapse-panel key="3" header="完整代码">
               <editor type="view" :content="content" :value="content"></editor>
               <template #extra>
-                <div class="copy">
-                  <span class="copyBoard" :value="content" @click.stop="copyCode">copy</span>
+                <div v-if="content" class="copy copyBoard" :value="content" @click.stop="copyCode">copy
                 </div>
               </template>
             </a-collapse-panel>
@@ -38,13 +45,15 @@ import { useRouter, useRoute } from 'vue-router'
 import { message } from 'ant-design-vue'
 import useMain from '../../store/index'
 import editor from '../../components/editor.vue'
+import templateVue from './components/template.vue'
 import ClipBoard from 'clipboard'
 import { IRecordField, IRecordType } from '../../types/index'
 
 export default defineComponent({
   name: 'funcs',
   components: {
-    editor
+    editor,
+    templateVue
   },
   setup() {
     const router = useRouter()
@@ -74,7 +83,7 @@ export default defineComponent({
       const res = await store.getRecordDetails({ id: 55 })
       content.value = res.data.content
     }
-    const activeKey = ref(['1', '2']);
+    const activeKey = ref(['1', '2', '3']);
     const copyCode = () => {
       const el: any = document.querySelector('.copyBoard')
       const value = el.attributes.value.value
