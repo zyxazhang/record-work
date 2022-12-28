@@ -248,7 +248,7 @@ export default defineComponent({
             height: 40px;
             border: none;
             border-radius: 8px;
-
+            line-height: 38px;
             &:hover {
               background: url("../../assets/img/btnbg.png") no-repeat;
               cursor: pointer;
