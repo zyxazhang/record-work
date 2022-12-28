@@ -52,7 +52,7 @@
               style="width: 50%"
               placeholder="选择权限"
               :disabled="!formState.auth_switch"
-              :options='[]'
+              :options="formState.auth_option"
             ></a-select>
             <a-switch style="margin: 0 10px" v-model:checked="formState.auth_switch" size="small" />
             <span style="font-size: 12px; color: #8c8c8c; margin: 0 10px" class="record-work icon-shezhi">  已有权限，仅移除，添加联系管理员。</span>
@@ -68,11 +68,9 @@
 
 <script lang="ts">
 import { message } from 'ant-design-vue'
-import { defineComponent, reactive, toRefs, ref } from 'vue'
-import template from '../funcs/components/template.vue'
+import { defineComponent, reactive, toRefs, ref, onMounted } from 'vue'
 import useMain from '../../store/index'
 export default defineComponent({
-  components: { template },
   name: 'UserInfo',
   props: {
     btnInfo: Object,
@@ -89,8 +87,9 @@ export default defineComponent({
       username: '',
       age: '',
       gender: 0,
-      picture: 'http://localhost:3002/static/images/nilu1672246577343.jpg',
+      picture: '',
       auth_field: [],
+      auth_option: [],
       auth_switch: false
     })
     const handleFile = async (e: any) => {
@@ -115,6 +114,19 @@ export default defineComponent({
     const close = () => {
       emit('closeAdminModal')
     }
+    onMounted(() => {
+      const { auth_field, picture, sex, username } = userInfo.value
+      formState.username = username
+      formState.age = 18
+      formState.gender = sex
+      formState.picture = picture || 'http://localhost:3002/static/images/nilu1672246577343.jpg'
+      formState.auth_option = [
+        { label: '创建记录', value: 'record'},
+        { label: '创建自定义功能', value: 'custom'},
+        { label: '参与活动', value: 'lucky'}
+      ]
+      formState.auth_field = ['record', 'custom', 'lucky']
+    })
     return {
       btnInfo,
       uploadRef,
