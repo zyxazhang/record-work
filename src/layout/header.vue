@@ -36,7 +36,6 @@ export default defineComponent({
   },
   setup() {
     const store = useMain()
-    console.log(store)
     const router = useRouter()
     const routerList: any = [
       {

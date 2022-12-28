@@ -54,7 +54,6 @@ export default defineComponent({
       const params = {
         name: filterNames
       }
-      console.log(params)
       result.state = true
       result.name = params.name
       result.suggest = '打洗他'

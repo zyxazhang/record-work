@@ -50,6 +50,15 @@ export default defineComponent({
 }
 .ant-modal-header {
   background: url('./assets/img/dialog-header.png') !important;
+  .ant-modal-title {
+    color: #fff;
+    font-weight: bold;
+  }
+}
+.ant-modal-content {
+  .ant-modal-close-x {
+    color: #fff;
+  }
 }
 
 </style>

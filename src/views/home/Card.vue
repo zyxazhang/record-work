@@ -38,8 +38,6 @@ export default defineComponent({
     setup(props) {
         const monthMaps = ref<any>(monthMap)
         const router = useRouter()
-        // console.log(props)
-        // const info = r
         const goToDetail = (id: number) => {
             router.push({
                 name: 'detail',

@@ -11,11 +11,13 @@
       </div>
       <div class="content">
         <a-spin v-if="tagLoading" class="loading" size="large" />
+        <no-data v-else-if="typelist.displayList.length === 0"></no-data>
         <div v-else class="list">
-          <card v-for="list in typelist.displayList" :key="list.key" :item="list"></card>
+            <card v-for="list in typelist.displayList" :key="list.key" :item="list"></card>
         </div>
       </div>
     </div>
+    <footerVue></footerVue>
   </div>
 </template>
 
@@ -24,6 +26,8 @@ import { defineComponent, onMounted, reactive, ref, watch } from 'vue'
 import Card from './Card.vue'
 import welcome from '../../components/welcome.vue'
 import useMain from '../../store/index'
+import footerVue from '../../layout/footer.vue'
+import NoData from '../../components/noData.vue'
 const tags = [
   { name: 'All', key: 'all' },
   { name: 'Vue', key: 'vue' },
@@ -36,7 +40,9 @@ export default defineComponent({
   name: 'home',
   components: {
     welcome,
-    Card
+    Card,
+    footerVue,
+    NoData
   },
   setup() {
     const store = useMain()
@@ -131,7 +137,7 @@ export default defineComponent({
   .contanier {
     width: 1280px;
     margin: 0 auto;
-    min-height: calc(100% - 440px);
+    min-height: calc(100% - 360px);
 
     // height: 60px;
     .tag {

@@ -32,7 +32,6 @@ export default defineStore('main', {
         },
         async getUserInfo () {
             const res = await axios.get('v1/user/info').then(response => response.data)
-            console.log(res)
             this.setUserInfo(res.data, true)
         },
 

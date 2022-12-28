@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('../config/index')
 const InitUser = require('../middleware/initUser')
+const { Item } = require('ant-design-vue/lib/menu')
 // 用户登录
 exports.USER_LOGIN = async (req, res, next) => {
   try {
@@ -88,6 +89,9 @@ exports.GET_USER_INFO = async (req, res, next) => {
     const queryStr = 'SELECT * FROM users WHERE id=?'
     const result = await query(queryStr, id)
     if (result.length !== 0) {
+      result.forEach(item => {
+        delete item.password
+      });
       return res.cc('success', 200, ...result, 1)
     } else {
       res.cc('查询用户失败', 200)

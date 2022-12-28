@@ -2,10 +2,13 @@ const express = require("express");
 // const db = require('../model/index.js')
 const router = express.Router();
 const multer = require("multer");
+const path = require('path')
+const isProd = process.env.NODE_ENV === 'production'
+const uploadUrl = isProd ? path.resolve(__dirname, '../../learnnewthings/static/images') : 'static/images'
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "static/images");
+    cb(null, uploadUrl);
   },
   filename: (req, file, cb) => {
     const filename =

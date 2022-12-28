@@ -8,11 +8,11 @@ const devMode = process.env.NODE_ENV !== 'production'
 module.exports = {
   entry: "./src/index.ts",
   output: {
-    filename: 'static/js/[name].bundle.js',
+    filename: 'assets/js/[name].bundle.js',
     path: path.resolve(__dirname, '../dist'),
-    clean: true
+    clean: true,
     // publicPath指定静态资源前缀
-    // publicPath:'https://cdn.xxxx.com/assets/',
+    publicPath:'/',
   },
   module: {
     rules: [
@@ -38,14 +38,14 @@ module.exports = {
         test: /\.(png|svg|jpe?g|gif)$/,
         type: "asset",
         generator: {
-          filename: "images/[name]-[hash][ext]",
+          filename: "assets/images/[name]-[hash][ext]",
         },
       },
       {
         test: /\.(eot|svg|ttf|woff2?|)$/,
         type: "asset/resource",
         generator: {
-          filename: "fonts/[name]-[hash][ext]",
+          filename: "assets/fonts/[name]-[hash][ext]",
         },
       }
     ],
@@ -54,6 +54,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "record-work",
       template: "./index.html",
+      favicon: './favicon.ico'
     }),
     new VueLoaderPlugin(),
     // new FriendlyErrorsWebpackPlugin({

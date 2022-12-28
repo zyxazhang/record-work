@@ -1,7 +1,7 @@
 // 常量字典
 
 // 记录标签
-export const tagList = [
+const tagList = [
   { name: "HTML", value: "html" },
   { name: "CSS", value: "vue" },
   { name: "JAVASCRIPT", value: "js" },
@@ -10,7 +10,7 @@ export const tagList = [
 ];
 // 工具列表
 
-export const toolList = [
+const toolList = [
   {
     name: "LOL黑名单",
     key: "lolBackList",
@@ -32,7 +32,7 @@ export const toolList = [
 ];
 
 
-export const reasonList = [
+const reasonList = [
     {
         label: '挂机',
         value: 'on-hook'
@@ -52,7 +52,7 @@ export const reasonList = [
 ]
 
 // 月份 number -> ^en
-export const monthMap: any = {
+const monthMap: any = {
   1: 'JAN',
   2: 'FEB',
   3: 'MAR',
@@ -65,4 +65,53 @@ export const monthMap: any = {
   10: 'OCT',
   11: 'NOV',
   12: 'DEC'
+}
+
+const userMata: any = [
+  {
+    name: '个人资料',
+    key: 'useInfo',
+    meta: {
+      icon: '',
+      btns: [
+        {
+          name: '查看',
+          key: 'view',
+          color: '#afa5ae'
+        },
+        {
+          name: '修改',
+          key: 'edit',
+          color: '#afa5ae'
+        }
+      ]
+    }
+  },
+  {
+    name: '登出',
+    key: 'logout',
+    meta: {
+      icon: '',
+      btns: [
+        {
+          name: '退出登录',
+          key: 'quit',
+          color: '#afa5ae'
+        },
+        {
+          name: '注销账号',
+          key: 'logout',
+          color: '#ee8683'
+        }
+      ]
+    }
+  }
+]
+
+export {
+  monthMap,
+  userMata,
+  toolList,
+  reasonList,
+  tagList
 }

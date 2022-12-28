@@ -35,7 +35,6 @@ export default defineComponent({
       showSuggest.value = true
     }
     const submit = (): void => {
-      console.log(suggestValue)
       confirmLoading.value = true
       setTimeout(() => {
         message.success('提交成功')
