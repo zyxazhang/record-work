@@ -1,22 +1,24 @@
 const query = require('../model/index')
 class InitUser {
-  constructor(useId) {
+  constructor(useId, useName) {
     this.u_id = useId // 用户id
+    this.u_name = useName
     this.isOver = this.computeIsOver(this.u_id) // 初始化流程是否结束
   }
   async computeIsOver(useId) {
-    const res = await Promise.all([this.lucky(useId)])
+    const res = await Promise.all([this.lucky(this.u_id, this.u_name)])
     if (!res.every(item => item)) {
       this.deleteAccessId(useId)
       return false
     }
     return true
   }
-  async lucky(uid) {
+  async lucky(uid, useName) {
     const sql = 'INSERT INTO lucky SET ?'
     const defaultParams = {
       uid,
-      count: 5,
+      uname: useName,
+      count: 2,
       prize: '',
       is_join: false
     }

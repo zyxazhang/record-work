@@ -88,6 +88,20 @@ const userMata: any = [
     }
   },
   {
+    name: '修改密码',
+    key: 'changePassWord',
+    meta: {
+      icon: '',
+      btns: [
+        {
+          name: '修改',
+          key: 'edit',
+          color: '#afa5ae'
+        }
+      ]
+    }
+  },
+  {
     name: '登出',
     key: 'logout',
     meta: {

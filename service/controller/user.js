@@ -41,9 +41,8 @@ exports.USER_REGISTER = async (req, res, next) => {
       }
       const registerStr = 'INSERT INTO users SET ?'
       const registerResult = await query(registerStr, params)
-      // console.log(registerResult);
       if (registerResult.affectedRows === 1) {
-        const initUser = new InitUser(registerResult.insertId)
+        const initUser = new InitUser(registerResult.insertId, username)
         if (await initUser.isOver) {
           return res.cc('注册成功', 200, { ...result }, 1)
         } else {

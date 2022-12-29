@@ -9,7 +9,7 @@
         <a-descriptions-item label="状态" :span="2"><a-badge status="success" />正常</a-descriptions-item>
         <a-descriptions-item label="积分" :span="3">80.00</a-descriptions-item>
         <a-descriptions-item label="头像" :span="3">
-          <img src="../../assets/img/tag3.gif" alt="">
+          <img style="width: 200px;height: 200px" src="../../assets/img/tag3.gif" alt="">
         </a-descriptions-item>
         <a-descriptions-item label="权限">
           创建文章
@@ -40,7 +40,7 @@
               <p>上传</p>
             </button>
             <div v-else class="display">
-              <img :src="formState.picture" alt="">
+              <img src="../../assets/img/tag3.gif" alt="">
               <div class="close record-work icon-shezhi" @click="closeUpload"></div>
             </div>
           </div>

@@ -20,26 +20,56 @@ const ADD_PRIZE = async (req, res, next) => {
   }
 }
 
-const UPDATE_PRIZE = (req, res, next) => {
+const UPDATE_PRIZE = async (req, res, next) => {
   try {
+    
   } catch (error) {
     return res.cc('失败', 200, error)
   }
 }
-const GET_PRIZE_LIST = (req, res, next) => {
+const GET_USER_PRIZE_LIST = async (req, res, next) => {
   try {
+    const sql = 'SELECT * FROM lucky'
+    const result = await query(sql)
+    return res.cc('success', 200, result, 1)
   } catch (error) {
     return res.cc('失败', 200, error)
   }
 }
-const GET_USER_PRIZE_RESULT = (req, res, next) => {
+const GET_USER_PRIZE_RESULT = async (req, res, next) => {
   try {
+    const sql = 'SELECT * FROM lucky WHERE uid=?'
+    const result = await query(sql, req.auth.id)
+    res.cc('success', 200, ...result, 1)
   } catch (error) {
     return res.cc('失败', 200, error)
   }
 }
-const UPDATE_USER_PRIZE_RESULT = (req, res, next) => {
+// 抽奖 更新信息
+const UPDATE_USER_PRIZE_RESULT = async (req, res, next) => {
   try {
+    const useId = req.auth.id
+    const sql = 'SELECT * FROM lucky WHERE uid=?'
+    const preResult = await query(sql, useId)
+    const { count, prize } = preResult[0]
+    if (count === 0) {
+      return res.cc('抽奖次数已用完！！', 200, { count }, 1)
+    }
+    // 扣除次数
+    const userCount = Number(count) - 1
+    // 已获得 prize
+    const userPrize = prize === '' ? [] : prize.split(',')
+    // 过滤已获得 prize
+    const prizeIds = [1, 2, 3, 4, 5, 6, 7, 8].filter(item => !userPrize.includes(String(item)))
+    const randomNum = Math.floor(Math.random() * prizeIds.length)
+    userPrize.push(prizeIds[randomNum])
+    // 需要更新参数 以数组传递
+    const params = [userCount, userPrize.toString(), true, useId]
+    const updateSql = 'UPDATE lucky SET count=?,prize=?,is_join=? WHERE uid=?'
+    const updateResult = await query(updateSql, params)
+    if (updateResult.affectedRows === 1) {
+      return res.cc('success', 200, { prize: prizeIds[randomNum], count: userCount }, 1)
+    }
   } catch (error) {
     return res.cc('失败', 200, error)
   }
@@ -48,7 +78,7 @@ const UPDATE_USER_PRIZE_RESULT = (req, res, next) => {
 module.exports = {
   ADD_PRIZE,
   UPDATE_PRIZE,
-  GET_PRIZE_LIST,
+  GET_USER_PRIZE_LIST,
   GET_USER_PRIZE_RESULT,
   UPDATE_USER_PRIZE_RESULT
 }
