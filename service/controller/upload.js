@@ -16,7 +16,7 @@ var storage = multer.diskStorage({
       new Date().getTime() +
       "." +
       file.originalname.split(".")[1];
-    cb(null, filename);
+    cb(null, filename.trim());
   },
 });
 const upload = multer({

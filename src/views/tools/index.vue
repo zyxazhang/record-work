@@ -3,69 +3,49 @@
     <p class="tools-text">工具</p>
     <img class="tools-img" src="../../assets/img/homebg.jpg" alt="">
     <div class="contanier">
-      <ul class="tool-list">
-        <li v-for="toolItem in tools.toolList" :key="toolItem.key" @click="openView(toolItem)">
-          <h3 class="name">{{ toolItem.name }}</h3>
-          <p class="desc">{{ toolItem.desc || '🤔还没有备注哦！' }}</p>
-          <span class="time">{{ toolItem.time }}</span>
-        </li>
-      </ul>
+      <a-space>
+        <customBotton title="朱泽民sb" class="name" size="small" :loading="loading" @onClick="handleClick"></customBotton>
+      </a-space>
     </div>
-    <a-modal
-      v-model:visible="isView" 
-      :title="tools.curSeleted.name"
-      centered
-      :footer="null">
-      <div class="tool-view">
-        <toolComponent :cur-key="tools.curComponent" :cur-seleted="tools.curSeleted" @closeView="closeView">
-        </toolComponent>
-      </div>
-    </a-modal>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import { toolList } from '../../constans/index'
+import { useRoute } from 'vue-router'
 import { IToolState, IToolsList } from '../../types/index'
-import toolComponent from './toolComponents/index.vue'
 export default defineComponent({
   name: 'toolsIndex',
   components: {
-    toolComponent
   },
   setup() {
-    const tools = reactive<IToolState>({
-      toolList,
-      curSeleted: {
-        name: '',
-        key: '',
-        time: '',
-        desc: ''
-      },
-      curComponent: ''
+    const route = useRoute()
+    const toolList = ref<Array<IToolState>>([])
+    route.matched[0].children.forEach((item: any) => {
+      toolList.value.push({
+        title: item.meta.title,
+        path: item.path,
+        name: item.name
+      })
     })
-    const isView = ref<boolean>(false)
-    const openView = (item: IToolsList): void => {
-      tools.curSeleted = item
-      tools.curComponent = item.key
-      isView.value = true
-    }
-    const closeView = (): void => {
-      tools.curComponent = ''
-      isView.value = false
+    const loading = ref<boolean>(false)
+    const handleClick = () => {
+      loading.value = !loading.value
+      console.log('sdsdsd')
     }
     return {
-      tools,
-      isView,
-      openView,
-      closeView
+      loading,
+      toolList,
+      handleClick
     }
   }
 })
 </script>
 
 <style lang="scss" scoped>
+.name {
+  // font-size: 20px;
+}
 .tools {
   width: 100%;
   height: calc(100% - 60px);
@@ -99,6 +79,7 @@ export default defineComponent({
     width: 1280px;
     margin: 0 auto;
     min-height: calc(100% - 440px);
+
     .tool-list {
       width: 100%;
       height: 100%;
@@ -106,7 +87,7 @@ export default defineComponent({
       padding: 20px;
       display: flex;
       flex-wrap: wrap;
-      
+
       li {
         width: 320px;
         height: 100px;
@@ -117,23 +98,23 @@ export default defineComponent({
         margin: 10px;
         color: #dee1e6;
         cursor: pointer;
-        
+
         .name {
           font-weight: 600;
           color: #6e6e6e;
         }
-        
+
         .desc {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
-        
+
         .time {
           display: block;
           text-align: right;
         }
-        
+
         &:hover {
           box-shadow: 0 6px 24px 0 rgb(0 0 0 / 15%);
         }
@@ -141,7 +122,7 @@ export default defineComponent({
     }
   }
 
-  
+
   .tool-view {
     width: 100%;
     // height: 100%;

@@ -44,9 +44,10 @@ export interface IToolsList {
 }
 
 export interface IToolState {
-  toolList: Array<IToolsList>,
-  curSeleted: IToolsList,
-  curComponent: string
+  title: string,
+  name: string,
+  path: string,
+  icon?: string
 }
 export interface IUserinfo {
   username: string,

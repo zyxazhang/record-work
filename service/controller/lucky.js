@@ -27,6 +27,7 @@ const UPDATE_PRIZE = async (req, res, next) => {
     return res.cc('失败', 200, error)
   }
 }
+// 获取所有用户抽奖记录
 const GET_USER_PRIZE_LIST = async (req, res, next) => {
   try {
     const sql = 'SELECT * FROM lucky'
@@ -36,16 +37,17 @@ const GET_USER_PRIZE_LIST = async (req, res, next) => {
     return res.cc('失败', 200, error)
   }
 }
+// 获取抽奖结果
 const GET_USER_PRIZE_RESULT = async (req, res, next) => {
   try {
     const sql = 'SELECT * FROM lucky WHERE uid=?'
     const result = await query(sql, req.auth.id)
-    res.cc('success', 200, ...result, 1)
+    return res.cc('success', 200, ...result, 1)
   } catch (error) {
     return res.cc('失败', 200, error)
   }
 }
-// 抽奖 更新信息
+// 抽奖更新信息
 const UPDATE_USER_PRIZE_RESULT = async (req, res, next) => {
   try {
     const useId = req.auth.id
@@ -61,6 +63,7 @@ const UPDATE_USER_PRIZE_RESULT = async (req, res, next) => {
     const userPrize = prize === '' ? [] : prize.split(',')
     // 过滤已获得 prize
     const prizeIds = [1, 2, 3, 4, 5, 6, 7, 8].filter(item => !userPrize.includes(String(item)))
+    // 随机
     const randomNum = Math.floor(Math.random() * prizeIds.length)
     userPrize.push(prizeIds[randomNum])
     // 需要更新参数 以数组传递

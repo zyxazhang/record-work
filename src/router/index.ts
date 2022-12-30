@@ -7,6 +7,11 @@ const Admin = () => import(/* webpackChunkName: "admin" */ '../views/admin/index
 const Tools = () => import(/* webpackChunkName: "admin" */ '../views/tools/index.vue')
 const Login = () => import(/* webpackChunkName: "admin" */ '../components/login.vue')
 
+const LolBackList = () => import(/* webpackChunkName: "lolBackList" */ '../views/tools/toolComponents/lolBackList.vue')
+const FileUpload = () => import(/* webpackChunkName: "lolBackList" */ '../views/tools/toolComponents/fileUpload.vue')
+const Lucky = () => import(/* webpackChunkName: "lolBackList" */ '../views/tools/toolComponents/lucky.vue')
+
+
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
@@ -60,10 +65,24 @@ const router = createRouter({
       name: 'tools',
       component: Tools,
       children: [
-        // {
-        //   path: '',
-        //   name: ''
-        // }
+        {
+          path: '/lol-back-list',
+          name: 'lolBackList',
+          component: LolBackList,
+          meta: { title: 'lol黑名单'}
+        },
+        {
+          path: '/file-upload',
+          name: 'fileUpload',
+          component: FileUpload,
+          meta: { title: '文件上传'}
+        },
+        {
+          path: '/lucky',
+          name: 'Lucky',
+          component: Lucky,
+          meta: { title: '福利抽奖'}
+        },
       ],
       meta: {
         title: '工具'
