@@ -45,22 +45,10 @@
             </div>
           </div>
         </a-form-item>
-        <a-form-item label="权限">
-          <a-select
-              v-model:value="formState.auth_field"
-              mode="multiple"
-              style="width: 50%"
-              placeholder="选择权限"
-              :disabled="!formState.auth_switch"
-              :options="formState.auth_option"
-            ></a-select>
-            <a-switch style="margin: 0 10px" v-model:checked="formState.auth_switch" size="small" />
-            <span style="font-size: 12px; color: #8c8c8c; margin: 0 10px" class="record-work icon-shezhi">  已有权限，仅移除，添加联系管理员。</span>
-        </a-form-item>
       </a-form>
       <div class="operate">
-        <button class="btn" @click="submit">确定</button>
-        <button class="btn" @click="close">取消</button>
+        <customBotton class="btn" size="small" theme="submit" :loading="loading"  @onClick="submit">确定</customBotton>
+        <customBotton class="btn" size="small" theme="cancel" @onClick="close">取消</customBotton>
       </div>
     </div>
   </div>
@@ -109,11 +97,13 @@ export default defineComponent({
     }
 
     const submit = () => {
-      
+      loading.value = !loading.value
     }
     const close = () => {
       emit('closeAdminModal')
     }
+    const loading = ref<boolean>(false)
+
     onMounted(() => {
       const { auth_field, picture, sex, username } = userInfo.value
       formState.username = username
@@ -128,6 +118,7 @@ export default defineComponent({
       formState.auth_field = ['record', 'custom', 'lucky']
     })
     return {
+      loading,
       btnInfo,
       uploadRef,
       formState,
@@ -194,6 +185,8 @@ export default defineComponent({
   }
 }
 .operate {
+  display: flex;
+  justify-content: center;
   text-align: center;
     .btn {
       font-weight: bold;
@@ -204,11 +197,11 @@ export default defineComponent({
       border-radius: 8px;
       margin: 0 20px;
       cursor: pointer;
-      &:hover {
-        background: url("../../assets/img/btnbg.png") no-repeat;
-        cursor: pointer;
-        color: #fff !important;
-      }
+      // &:hover {
+      //   background: url("../../assets/img/btnbg.png") no-repeat;
+      //   cursor: pointer;
+      //   color: #fff !important;
+      // }
     }
   }
 </style>

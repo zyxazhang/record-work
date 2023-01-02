@@ -52,6 +52,7 @@ const UPDATE_USER_PRIZE_RESULT = async (req, res, next) => {
   try {
     const useId = req.auth.id
     const sql = 'SELECT * FROM lucky WHERE uid=?'
+    console.log(useId, sql, 'asss');
     const preResult = await query(sql, useId)
     const { count, prize } = preResult[0]
     if (count === 0) {
@@ -68,6 +69,7 @@ const UPDATE_USER_PRIZE_RESULT = async (req, res, next) => {
     userPrize.push(prizeIds[randomNum])
     // 需要更新参数 以数组传递
     const params = [userCount, userPrize.toString(), true, useId]
+    console.log(params)
     const updateSql = 'UPDATE lucky SET count=?,prize=?,is_join=? WHERE uid=?'
     const updateResult = await query(updateSql, params)
     if (updateResult.affectedRows === 1) {

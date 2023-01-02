@@ -34,6 +34,17 @@ export default defineStore('main', {
             const res = await axios.get('v1/user/info').then(response => response.data)
             this.setUserInfo(res.data, true)
         },
+        // lucky
+        getUserPrizeList () {
+            return axios.get('v1/lucky/prize/list').then(response => response.data)
+        },
+        getUserPrize () {
+            return axios.get('v1/lucky/prizer').then(response => response.data)
+        },
+        updateUserPrize () {
+            return axios.patch('v1/lucky/update/prizer').then(response => response.data)
+        },
+
 
     }
 })

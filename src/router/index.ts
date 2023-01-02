@@ -66,19 +66,19 @@ const router = createRouter({
       component: Tools,
       children: [
         {
-          path: '/lol-back-list',
+          path: 'lol-back-list',
           name: 'lolBackList',
           component: LolBackList,
           meta: { title: 'lol黑名单'}
         },
         {
-          path: '/file-upload',
+          path: 'file-upload',
           name: 'fileUpload',
           component: FileUpload,
           meta: { title: '文件上传'}
         },
         {
-          path: '/lucky',
+          path: 'lucky',
           name: 'Lucky',
           component: Lucky,
           meta: { title: '福利抽奖'}

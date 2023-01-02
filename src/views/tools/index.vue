@@ -3,16 +3,19 @@
     <p class="tools-text">工具</p>
     <img class="tools-img" src="../../assets/img/homebg.jpg" alt="">
     <div class="contanier">
-      <a-space>
-        <customBotton title="朱泽民sb" class="name" size="small" :loading="loading" @onClick="handleClick"></customBotton>
-      </a-space>
+      <div class="tool-list">
+        <customBotton :class="['name', route.name === tool.name ? 'active' : '']" v-for="tool in toolList" :key="tool.name" @onClick="handleClick(tool.name)">{{ tool.title }}</customBotton>
+      </div>
+      <div class="content">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { IToolState, IToolsList } from '../../types/index'
 export default defineComponent({
   name: 'toolsIndex',
@@ -20,6 +23,7 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute()
+    const router = useRouter()
     const toolList = ref<Array<IToolState>>([])
     route.matched[0].children.forEach((item: any) => {
       toolList.value.push({
@@ -28,12 +32,15 @@ export default defineComponent({
         name: item.name
       })
     })
+    console.log(route.name)
     const loading = ref<boolean>(false)
-    const handleClick = () => {
-      loading.value = !loading.value
-      console.log('sdsdsd')
+    const handleClick = (name: string) => {
+      router.push({
+        name
+      })
     }
     return {
+      route,
       loading,
       toolList,
       handleClick
@@ -43,9 +50,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.name {
-  // font-size: 20px;
-}
 .tools {
   width: 100%;
   height: calc(100% - 60px);
@@ -84,41 +88,30 @@ export default defineComponent({
       width: 100%;
       height: 100%;
       overflow-y: auto;
-      padding: 20px;
+      padding: 10px 20px;
       display: flex;
       flex-wrap: wrap;
 
-      li {
-        width: 320px;
-        height: 100px;
-        background-color: #8f7e88;
+      .name {
+        width: 228px;
+        height: 50px;
+        background-color: #8d7871;
         border-radius: 8px;
         box-shadow: 0 2px 2px 0 rgb(0 0 0 / 15%);
         padding: 10px;
         margin: 10px;
         color: #dee1e6;
         cursor: pointer;
-
-        .name {
-          font-weight: 600;
-          color: #6e6e6e;
-        }
-
-        .desc {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .time {
-          display: block;
-          text-align: right;
-        }
-
-        &:hover {
-          box-shadow: 0 6px 24px 0 rgb(0 0 0 / 15%);
-        }
+        line-height: 30px;
       }
+      .active {
+        background: #888ea6;
+      }
+    }
+    .content {
+      width: 100%;
+      padding: 0 30px 20px 30px;
+      min-height: 500px;
     }
   }
 

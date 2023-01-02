@@ -1,15 +1,19 @@
 <template>
-  <button class="botton small" @click="handleClick">
-    <span v-if="loading" class="loading record-work icon-shijian1"></span>
-    <span v-else class="text">{{ text }}</span>
+  <button :class="['botton', btnClass]" @click="handleClick">
+    <div v-if="loading" class="loading"></div>
+    <span v-else class="text" :title="text">{{ text }}</span>
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch } from 'vue'
+import { computed, defineComponent, ref, toRefs, watch } from 'vue'
 export default defineComponent({
   name: 'customBotton',
   props: {
+    theme: {
+      type: String,
+      default: 'default'
+    },
     title: {
       type: String,
       default: ''
@@ -17,24 +21,24 @@ export default defineComponent({
     loading: {
       type: Boolean,
       default: false
-    },
-    size: {
-      type: Boolean,
-      default: 'middle'
     }
   },
   setup(props, { slots, attrs, emit }) {
     // text
-    console.log(props);
-    const { loading, title } = toRefs(props)
+    const { loading, title, theme } = toRefs(props)
     const showSlot = slots.default?.();
     const text = ref<string>(showSlot?.[0].children as string || title.value)
-
+    // 样式
+    const btnClass = computed(() => {
+      return String(theme.value)
+    })
     // 点击事件
     const handleClick = (e: Event) => {
+      if (loading.value) return
       emit('onClick', e)
     }
     return {
+      btnClass,
       loading,
       text,
       handleClick
@@ -62,7 +66,9 @@ export default defineComponent({
   }
 
 }
+
 .botton {
+  display: block;
   font-weight: bold;
   font-size: 20px;
   width: 150px;
@@ -70,39 +76,57 @@ export default defineComponent({
   border: none;
   border-radius: 8px;
   margin: 0 20px;
+  padding: 0;
   cursor: pointer;
   line-height: 40px;
+  background-size: 100% 100%;
+  color: #fff;
   overflow: hidden;
-  &:hover {
-    background: url("../assets/img/btnbg.png") no-repeat;
-    cursor: pointer;
-    color: #fff !important;
-  }
-}
-.small {
-  width: 100px;
-  height: 30px;
-  font-size: 10px;
-  line-height: 30px;
-}
-.large {
-  width: 200px;
-  height: 50px;
-  font-size: 20px;
-  line-height: 50px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+.default {
+  background: #f0f0f0;
+  color: #afa5ae;
+  &:hover {
+    background: url("../assets/img/btnbg.png") no-repeat;
+    background-size: 100% 100%;
+    color: #fff;
+  }
+}
+.submit {
+  background: url("../assets/img/btnbg.png") no-repeat;
+  &:hover {
+    background: url("../assets/img/3146286a61f9ebfd7ab004d86fe6d62c_7284917494626685902.gif") no-repeat;
+    background-size: 100% 100%;
+    color: #565d7b;
+  }
+}
+.cancel {
+  background: url("../assets/img/btnbg.png") no-repeat;
+  &:hover {
+    background: url("../assets/img/ea37ebc086567749ac170778144458e8_1284097030846140752.gif") no-repeat;
+    background-size: 100% 100%;
+    color: #565d7b;
+  }
+}
+
+
 .loading {
-  width: 20px;
-  height: 20px;
+  width: 100%;
+  height: 100%;
   line-height: 20px;
   color: #1e1e1e;
   font-size: 20px;
   display: inline-block;
-  animation: rotate 2s infinite linear;
+  background: url("../assets/img/d23bc1a8e7098c8b923e298f8bd4e28d_5246113135597935036.gif") no-repeat;
+  background-size: 100% 100%;
+  border-radius: 8px;
 }
+
 .text {
-  padding: 0 10px;
+  padding: 0 20px;
   transition: all 0.5s;
 }
 </style>
